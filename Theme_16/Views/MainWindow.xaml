@@ -38,7 +38,7 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -50,8 +50,8 @@
             <TextBlock 
                 Grid.Column="0"
                 HorizontalAlignment="Left"
-                Text="ADO.Net Project"
-                Foreground="Gray" 
+                Text="ADO.Net Project (Theme16)"
+                Foreground="DarkGray" 
                 FontWeight="Bold" 
                 FontFamily="Mongolian Baiti"
                 Margin="5, 2"
@@ -93,7 +93,6 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-
             <Button                
                 Grid.Row="0"
                 Grid.Column="2"
@@ -129,7 +128,61 @@
                 </Button.Template>
             </Button>
 
+            <StackPanel 
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Grid.Row="1"
+                Orientation="Horizontal"
+                Margin="10,0"
+                >
 
+                <TextBlock
+                    Text="User Name"
+                    Foreground="DarkGray"
+                    FontSize="16"
+                    VerticalAlignment="Center"
+                    FontWeight="Medium"
+                    FontFamily="Mongolian Baiti"
+                    Margin="5"
+                    />
+
+                <TextBox
+                    VerticalAlignment="Center"
+                    FontSize="13"                    
+                    FontWeight="Medium"
+                    FontFamily="Mongolian Baiti"
+                    Background="Transparent"
+                    Foreground="White"
+                    CaretBrush="LightGray"
+                    BorderBrush="DarkGray"
+                    Width="200"
+                    Margin="5"
+                    />
+
+                <TextBlock
+                    Text="Password"
+                    Foreground="DarkGray"
+                    FontSize="16"
+                    VerticalAlignment="Center"
+                    FontWeight="Medium"
+                    FontFamily="Mongolian Baiti"
+                    Margin="20, 0,10,0"
+                    />
+
+                <PasswordBox
+                    VerticalAlignment="Center"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    FontFamily="Mongolian Baiti"
+                    Background="Transparent"
+                    Foreground="White"
+                    CaretBrush="LightGray"
+                    BorderBrush="DarkGray"
+                    Width="200"
+                    Margin="5"
+                    />
+
+            </StackPanel>
 
 
         </Grid>
