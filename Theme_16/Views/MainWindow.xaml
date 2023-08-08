@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Theme_16"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="ADO.NET" 
+        Height="450" Width="800"
+        >
+    
+    
+    <DockPanel>
+        <StackPanel Orientation="Horizontal">
+            
+        </StackPanel>
+    </DockPanel>
 </Window>
