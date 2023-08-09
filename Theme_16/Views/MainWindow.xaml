@@ -11,11 +11,6 @@
         WindowStyle="None" MouseDown="Window_MouseDown"
         AllowsTransparency="True" Background="Transparent"
         >
-    <Window.Resources>
-       
-       
-    </Window.Resources>
-
     <Border 
         BorderThickness="3"
         CornerRadius="15"
