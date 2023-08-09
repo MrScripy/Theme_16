@@ -23,5 +23,9 @@ namespace Theme_16.Views
         {
             InitializeComponent();
         }
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }
