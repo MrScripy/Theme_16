@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using Theme_16.Views;
 
 namespace Theme_16
 {
@@ -26,6 +27,18 @@ namespace Theme_16
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ChangeWindow window = new ChangeWindow();   
+            window.Show();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            AddWindow window = new AddWindow(); 
+            window.Show();
         }
     }
 }

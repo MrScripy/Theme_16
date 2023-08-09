@@ -27,5 +27,9 @@ namespace Theme_16.Views
         {
             DragMove();
         }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

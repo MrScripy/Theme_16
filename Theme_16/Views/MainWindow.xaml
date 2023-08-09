@@ -252,6 +252,7 @@
                     FontSize="20"  
                     Content="Change"
                     Margin="5"
+                    Click="Button_Click_2"
                     >
                     <Button.Style>
                         <Style TargetType="Button">
@@ -286,7 +287,7 @@
                     FontFamily="Mongolian Baiti"
                     FontSize="20"  
                     Content="Add"
-                    Margin="5"
+                    Margin="5" Click="Button_Click_3"
                     >
                     <Button.Style>
                         <Style TargetType="Button">
