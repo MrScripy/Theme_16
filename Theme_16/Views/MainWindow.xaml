@@ -11,7 +11,10 @@
         WindowStyle="None" MouseDown="Window_MouseDown"
         AllowsTransparency="True" Background="Transparent"
         >
-
+    <Window.Resources>
+       
+       
+    </Window.Resources>
 
     <Border 
         BorderThickness="3"
@@ -37,7 +40,7 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.2*"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -155,6 +158,7 @@
                     Foreground="White"
                     CaretBrush="LightGray"
                     BorderBrush="DarkGray"
+                    BorderThickness="0,0,0,1"
                     Width="200"
                     Margin="5"
                     />
@@ -178,6 +182,7 @@
                     Foreground="White"
                     CaretBrush="LightGray"
                     BorderBrush="DarkGray"
+                    BorderThickness="0,0,0,1"
                     Width="200"
                     Margin="5"
                     />
@@ -193,16 +198,11 @@
                 HorizontalAlignment="Center"                
                 >
                 <DataGrid 
-                    Width="350"
-                    Margin="5"
-                    
+                    RowStyle="{DynamicResource DataGridRowStyle1}" 
+                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                    CellStyle="{DynamicResource DataGridCellStyle1}" 
+                    Style="{DynamicResource DataGridStyle1}"                      
                     >
-                    <DataGrid.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <GradientStop Color="#070640" Offset="0.3"/>
-                            <GradientStop Color="#1B1448" Offset="1"/>
-                        </LinearGradientBrush>
-                    </DataGrid.Background>
                     
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="N" Width="Auto" IsReadOnly="True"/>
@@ -212,10 +212,16 @@
                     </DataGrid.Columns>
 
                 </DataGrid>
+                
+                
                 <DataGrid 
-                    Width="350"
-                    Margin="5"  
+                    RowStyle="{DynamicResource DataGridRowStyle1}" 
+                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                    CellStyle="{DynamicResource DataGridCellStyle1}" 
+                    Style="{DynamicResource DataGridStyle1}"    
                     >
+                    
+                    
                     <DataGrid.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                             <GradientStop Color="#070640" Offset="0.3"/>
