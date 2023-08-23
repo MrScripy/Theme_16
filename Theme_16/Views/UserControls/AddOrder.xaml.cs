@@ -10,27 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Theme_16.Views
+namespace Theme_16.Views.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для ChangeWindow.xaml
+    /// Логика взаимодействия для AddOrder.xaml
     /// </summary>
-    public partial class ChangeWindow : Window
+    public partial class AddOrder : UserControl
     {
-        public ChangeWindow()
+        public AddOrder()
         {
             InitializeComponent();
-        }
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }

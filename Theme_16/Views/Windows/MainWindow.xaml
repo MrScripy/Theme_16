@@ -11,6 +11,7 @@
         WindowStyle="None" MouseDown="Window_MouseDown"
         AllowsTransparency="True" Background="Transparent"
         >
+    
     <Border 
         BorderThickness="3"
         CornerRadius="15"
@@ -135,36 +136,22 @@
                 >
 
                 <TextBlock
+                    Style="{StaticResource TextBlockStyle}"
                     Text="User Name"
-                    Foreground="DarkGray"
-                    FontSize="16"
-                    VerticalAlignment="Center"
-                    FontWeight="Medium"
-                    FontFamily="Mongolian Baiti"
+                    VerticalAlignment="Center"                    
                     Margin="5"
                     />
 
                 <TextBox
-                    VerticalAlignment="Center"
-                    FontSize="13"                    
-                    FontWeight="Medium"
-                    FontFamily="Mongolian Baiti"
-                    Background="Transparent"
-                    Foreground="White"
-                    CaretBrush="LightGray"
-                    BorderBrush="DarkGray"
-                    BorderThickness="0,0,0,1"
-                    Width="200"
+                    Style="{StaticResource TextBoxStyle}"
+                    VerticalAlignment="Center"                    
                     Margin="5"
                     />
 
                 <TextBlock
-                    Text="Password"
-                    Foreground="DarkGray"
-                    FontSize="16"
-                    VerticalAlignment="Center"
-                    FontWeight="Medium"
-                    FontFamily="Mongolian Baiti"
+                    Style="{StaticResource TextBlockStyle}"
+                    Text="Password"                   
+                    VerticalAlignment="Center"                    
                     Margin="20, 0,10,0"
                     />
 
@@ -181,6 +168,27 @@
                     Width="200"
                     Margin="5"
                     />
+
+                <Button  
+                    Style="{StaticResource ButtonStyle}"
+                    Width="100"
+                    Height="30"                    
+                    FontSize="16"  
+                    Content="Connect"  
+                    Margin="25, 0"                   
+                    >                   
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="100" Height="30"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" 
+                                              HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
 
             </StackPanel>
 
@@ -203,7 +211,7 @@
                         <DataGridTextColumn Header="N" Width="Auto" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Name" Width="Auto" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Phone" Width="Auto" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="e-mail" Width="Auto" IsReadOnly="True"/>                       
+                        <DataGridTextColumn Header="E-mail" Width="Auto" IsReadOnly="True"/>                       
                     </DataGrid.Columns>
 
                 </DataGrid>
@@ -243,27 +251,13 @@
                 >
 
                 <Button   
+                    Style="{StaticResource ButtonStyle}"
                     Width="150"
                     Height="40"
                     Padding="5"
-                    BorderThickness="0"                    
-                    Foreground="White"
-                    FontFamily="Mongolian Baiti"
-                    FontSize="20"  
                     Content="Change"
-                    Margin="5"
-                    Click="Button_Click_2"
-                    >
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#DA34AE"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#C62DAE"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                    Margin="5"                   
+                    >                  
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Width="150" Height="40"
@@ -274,31 +268,16 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
-
                 </Button>
 
 
                 <Button   
+                    Style="{StaticResource ButtonStyle}"
                     Width="150"
-                    Height="40"
-                    Padding="5"
-                    BorderThickness="0"                    
-                    Foreground="White"
-                    FontFamily="Mongolian Baiti"
-                    FontSize="20"  
+                    Height="40"                    
                     Content="Add"
                     Margin="5" Click="Button_Click_3"
-                    >
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#DA34AE"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#C62DAE"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                    >                    
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Width="150" Height="40"
@@ -312,27 +291,13 @@
 
                 </Button>
 
-                <Button   
+                <Button  
+                    Style="{StaticResource ButtonStyle}"
                     Width="150"
-                    Height="40"
-                    Padding="5"
-                    BorderThickness="0"                    
-                    Foreground="White"
-                    FontFamily="Mongolian Baiti"
-                    FontSize="20"  
+                    Height="40"                    
                     Content="Clear the tables"
                     Margin="5"
-                    >
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#DA34AE"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#C62DAE"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                    >                    
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Width="150" Height="40"
@@ -343,7 +308,6 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
-
                 </Button>
                 
             </StackPanel>

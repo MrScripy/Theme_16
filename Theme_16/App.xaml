@@ -8,7 +8,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
-                <ResourceDictionary Source="/Recources/Dictionaries/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="/Recources/Styles/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="/Recources/Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="/Recources/Styles/TextStyles.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

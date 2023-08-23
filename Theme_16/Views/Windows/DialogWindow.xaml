@@ -34,15 +34,10 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="5"/>
-            </Grid.ColumnDefinitions>
+           
 
             <Button                
                 Grid.Row="0"
@@ -55,6 +50,7 @@
                 FontFamily="Mongolian Baiti"
                 FontSize="12"
                 Click="Button_Click"  
+                Margin="0,0,10,0"
                 >
                 <Button.Style>
                     <Style TargetType="Button">
@@ -78,6 +74,8 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
+            
+            
         </Grid>
         
     </Border>

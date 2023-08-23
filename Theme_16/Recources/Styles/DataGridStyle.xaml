@@ -7,6 +7,8 @@
         <GradientStop Color="#1B1448" Offset="1"/>
     </LinearGradientBrush>
 
+    <SolidColorBrush x:Key="BlackBrush" Color="Black"/>
+
     <Style x:Key="{ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
@@ -17,7 +19,7 @@
                                    SnapsToDevicePixels="True"
                                    />
                         <Polygon x:Name="Arrow" 
-                                 Fill="Black"
+                                 Fill="{StaticResource BlackBrush}"
                                  HorizontalAlignment="Right" 
                                  Margin="8,8,3,3"
                                  Opacity="0.15" 
@@ -47,8 +49,8 @@
     
     
     <Style x:Key="DataGridCellStyle1" TargetType="{x:Type DataGridCell}">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Background" Value="{StaticResource TransparentBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource TransparentBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -88,7 +90,7 @@
     
     <Style x:Key="ColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
         <Setter Property="Width" Value="8"/>
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="{StaticResource TransparentBrush}"/>
         <Setter Property="Cursor" Value="SizeWE"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -109,7 +111,7 @@
                 <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
                     <Grid>
                         <theme:DataGridHeaderBorder 
-                            Background="Transparent"
+                            Background="{StaticResource TransparentBrush}"
                             BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="{TemplateBinding BorderThickness}" 
                             IsPressed="{TemplateBinding IsPressed}"
@@ -182,7 +184,7 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="DarkBlue"/>
-                <Setter Property="Foreground" Value="DarkGray"/>
+                <Setter Property="Foreground" Value="{StaticResource DarkGrayBrush}"/>
                 <Setter Property="Cursor" Value="Hand"/>
 
             </Trigger>
@@ -192,7 +194,7 @@
     
     <Style x:Key="DataGridStyle1" TargetType="{x:Type DataGrid}">
         <Setter Property="Background" Value="{StaticResource MyGradientBack}"/>
-        <Setter Property="Foreground" Value="DarkGray"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkGrayBrush}"/>
         <Setter Property="BorderBrush" Value="#FF688CAF"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected"/>
