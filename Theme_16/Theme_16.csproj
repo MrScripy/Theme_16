@@ -5,10 +5,12 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <StartupObject>Theme_16.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Models\Base\" />
+    <Folder Include="Новая папка\" />
   </ItemGroup>
 
   <ItemGroup>
