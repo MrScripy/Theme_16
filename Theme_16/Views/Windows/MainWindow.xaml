@@ -10,7 +10,9 @@
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         WindowStyle="None" MouseDown="Window_MouseDown"
         AllowsTransparency="True" Background="Transparent"
-        >
+        
+   >
+    
     
     <Border 
         BorderThickness="3"
@@ -200,44 +202,38 @@
                 Margin="5"
                 HorizontalAlignment="Center"                
                 >
-                <DataGrid 
-                    RowStyle="{DynamicResource DataGridRowStyle1}" 
-                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
-                    CellStyle="{DynamicResource DataGridCellStyle1}" 
-                    Style="{DynamicResource DataGridStyle1}"                      
+                <DataGrid
+                    RowStyle="{DynamicResource DataGridRowStyle2}" 
+                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
+                    CellStyle="{DynamicResource DataGridCellStyle2}" 
+                    Style="{DynamicResource DataGridStyle2}"  
+                    Width="400" 
+                    Name="FirstDG" 
+                    Margin="0 0 10 0"
                     >
-                    
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="N" Width="Auto" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Name" Width="Auto" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Phone" Width="Auto" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="E-mail" Width="Auto" IsReadOnly="True"/>                       
+                        <DataGridTextColumn Header="N" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Name" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Phone" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="E-mail" IsReadOnly="True"/>
                     </DataGrid.Columns>
 
                 </DataGrid>
-                
-                
+
+
                 <DataGrid 
-                    RowStyle="{DynamicResource DataGridRowStyle1}" 
-                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
-                    CellStyle="{DynamicResource DataGridCellStyle1}" 
-                    Style="{DynamicResource DataGridStyle1}"    
+                    RowStyle="{DynamicResource DataGridRowStyle2}" 
+                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
+                    CellStyle="{DynamicResource DataGridCellStyle2}" 
+                    Style="{DynamicResource DataGridStyle2}"                      
+                    Width="400" 
+                    Margin="10 0 0 0"
                     >
-                    
-                    
-                    <DataGrid.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <GradientStop Color="#070640" Offset="0.3"/>
-                            <GradientStop Color="#1B1448" Offset="1"/>
-                        </LinearGradientBrush>
-                    </DataGrid.Background>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="N" Width="Auto" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Order N" Width="Auto" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Product name" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="N" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Order N" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Product name" IsReadOnly="True"/>
                     </DataGrid.Columns>
-
-
                 </DataGrid>
 
             </StackPanel>
