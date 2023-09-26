@@ -5,6 +5,7 @@ using Theme_16.Services.Interfaces;
 using Microsoft.Data.SqlClient;
 using System.Windows.Input;
 using Theme_16.Infrastrucutre.Commands;
+using System.Threading.Tasks;
 
 namespace Theme_16.ViewModels
 {
@@ -37,7 +38,7 @@ namespace Theme_16.ViewModels
         private bool CanDownloadDataCommandExecute(object p) => true;
         private void OnDownloadDataCommandExecuted(object p)
         {
-
+            
         }
 
 
@@ -48,13 +49,13 @@ namespace Theme_16.ViewModels
         {
 
 
-            //_dataCreator = dataCreator;
-            //SqlConnection connection = new SqlConnection(_connectionOrdersString);
-            //Task.Run(() =>
-            //{
-            //    _dataCreator.CreateCustomers(_connectionCustomersString);
-            //    _dataCreator.CreateOrders(_connectionOrdersString);
-            //});
+            _dataCreator = dataCreator;
+            SqlConnection connection = new SqlConnection(_connectionOrdersString);
+            Task.Run(() =>
+            {
+                _dataCreator.CreateCustomers(_connectionCustomersString);
+                _dataCreator.CreateOrders(_connectionOrdersString);
+            });
 
         }
 

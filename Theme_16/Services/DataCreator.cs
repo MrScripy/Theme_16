@@ -22,9 +22,9 @@ namespace Theme_16.Services
             _testCustomers = Enumerable.Range(1, 50)
                .Select(i => new Person
                {
-                   Name = $"Имя {i}",
-                   Patronymic = $"Отчество {i}",
-                   Surname = $"Фамилия {i}",
+                   Name = $"Name {i}",
+                   Patronymic = $"Patronymic {i}",
+                   Surname = $"Surname {i}",
                    Phone = (i * _random.Next(i, 100)),
                    Mail = $"mail{i}.@mail.ru"
                });
@@ -34,7 +34,7 @@ namespace Theme_16.Services
             _orders = Enumerable.Range(1, 100)
                 .Select(i => new Order
                 {
-                    ItemName = $"Имя товара {i}",
+                    ItemName = $"Item name {i}",
                     ItemCode = _random.Next(0, 100),
                     Mail = _random.NextItem(mails)
                 });
