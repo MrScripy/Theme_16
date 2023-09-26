@@ -177,7 +177,8 @@
                     Height="30"                    
                     FontSize="16"  
                     Content="Connect"  
-                    Margin="25, 0"                   
+                    Margin="25, 0"   
+                    
                     >                   
                     <Button.Template>
                         <ControlTemplate TargetType="Button">

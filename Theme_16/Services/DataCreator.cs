@@ -6,40 +6,50 @@ using Microsoft.Data.SqlClient;
 using System.Threading.Tasks;
 using Theme_16.Models;
 using Theme_16.Service;
+using Theme_16.Services.Interfaces;
 
 namespace Theme_16.Services
 {
-    internal class UserDataCreator 
+    internal class DataCreator : IDataCreator
     {
-        private string _connectionString;
         IEnumerable<Person> _testCustomers;
         IEnumerable<Order> _orders;
-        
+
         Random _random = new Random();
 
-        public UserDataCreator(string connectionString) 
-        { 
-            _connectionString = connectionString;
+        public DataCreator()
+        {
+            _testCustomers = Enumerable.Range(1, 50)
+               .Select(i => new Person
+               {
+                   Name = $"Имя {i}",
+                   Patronymic = $"Отчество {i}",
+                   Surname = $"Фамилия {i}",
+                   Phone = (i * _random.Next(i, 100)),
+                   Mail = $"mail{i}.@mail.ru"
+               });
+
+            var mails = _testCustomers.Select(i => i.Mail).ToArray();
+
+            _orders = Enumerable.Range(1, 100)
+                .Select(i => new Order
+                {
+                    ItemName = $"Имя товара {i}",
+                    ItemCode = _random.Next(0, 100),
+                    Mail = _random.NextItem(mails)
+                });
+
         }
+        
 
         /// <summary>
         /// Method creates test customers, creates table in DB and adds customers there
         /// </summary>
         /// <returns></returns>
-        public async Task CreateCustomers()
-        {            
-            _testCustomers = Enumerable.Range(1, 50)
-                .Select(i => new Person
-                {
-                    Name = $"Имя {i}",
-                    Patronymic = $"Отчество {i}",
-                    Surname = $"Фамилия {i}",
-                    Phone = (i * _random.Next(i, 100)),
-                    Mail = $"mail{i}.@mail.ru"
-                });
-
-
-            using(SqlConnection connection = new SqlConnection(_connectionString))
+        public async Task CreateCustomers(string _connectionCustomersString)
+        {
+           
+            using (SqlConnection connection = new SqlConnection(_connectionCustomersString))
             {
                 await connection.OpenAsync();
 
@@ -58,7 +68,7 @@ namespace Theme_16.Services
                 await command.ExecuteNonQueryAsync();
                 Debug.WriteLine("Creating customers table");
 
-                foreach(Person person in _testCustomers)
+                foreach (Person person in _testCustomers)
                 {
                     command.CommandText = $"INSERT INTO Customers (Name, Patronymic, Surname, Phone, Mail) " +
                         $"VALUES ('{person.Name}', '{person.Patronymic}', '{person.Surname}', {person.Phone}, '{person.Mail}')";
@@ -76,20 +86,10 @@ namespace Theme_16.Services
         /// Method creates test orders, creates table in DB and adds orders there
         /// </summary>
         /// <returns></returns>
-        public async Task CreateOrders()
+        public async Task CreateOrders(string _connectionOrdersString)
         {
 
-            var mails = _testCustomers.Select(i => i.Mail).ToArray();
-
-            _orders = Enumerable.Range(1, 100)
-                .Select(i => new Order
-                {
-                    ItemName = $"Имя товара {i}",
-                    ItemCode = _random.Next(0, 100),
-                    Mail = _random.NextItem(mails)
-                });
-
-            using(SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionOrdersString))
             {
                 await connection.OpenAsync();
                 Debug.WriteLine("Opend connection to DB (create orders)");
@@ -106,7 +106,7 @@ namespace Theme_16.Services
                 Debug.WriteLine("Creating orders table");
 
 
-                foreach(Order order in _orders)
+                foreach (Order order in _orders)
                 {
                     command.CommandText = $"INSERT INTO Orders (Mail, ItemCode, ItemName) " +
                         $"VALUES ('{order.Mail}', {order.ItemCode}, '{order.ItemName}')";
