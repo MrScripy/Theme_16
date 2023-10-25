@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Theme_16.ViewModels
 {
@@ -11,6 +6,8 @@ namespace Theme_16.ViewModels
     {
         public static IServiceCollection AddViewModels(this IServiceCollection services) => services
             .AddSingleton<MainWindowViewModel>()
+            .AddSingleton<LoginViewModel>()
+            .AddSingleton<MainViewModel>()
             ;
     }
 }

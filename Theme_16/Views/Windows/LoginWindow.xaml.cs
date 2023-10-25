@@ -1,17 +1,18 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace Theme_16.Views
+namespace Theme_16.Views.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для AddWindow.xaml
+    /// Логика взаимодействия для LoginWindow.xaml
     /// </summary>
-    public partial class AddWindow : Window
+    public partial class LoginWindow : Window
     {
-        public AddWindow()
+        public LoginWindow()
         {
             InitializeComponent();
         }
+
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -20,5 +21,6 @@ namespace Theme_16.Views
         {
             Close();
         }
+
     }
 }

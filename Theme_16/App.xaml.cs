@@ -4,6 +4,8 @@ using System;
 using System.Windows;
 using Theme_16.Services;
 using Theme_16.ViewModels;
+using Theme_16.Views;
+using Theme_16.Views.Windows;
 
 namespace Theme_16
 {
@@ -16,7 +18,8 @@ namespace Theme_16
 
         internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
             .AddServices()
-            .AddViewModels()            
+            .AddViewModels()       
+            .AddViews()
             ;
 
         public static IServiceProvider Services => Host.Services;
@@ -24,10 +27,11 @@ namespace Theme_16
         protected override async void OnStartup(StartupEventArgs e)
         {
             var host = Host;
-
             base.OnStartup(e);
-
             await host.StartAsync();
+            MainWindow mainWindow = App.Services.GetService<MainWindow>();
+            if (mainWindow != null)
+                mainWindow.Show();
         }
 
         protected override async void OnExit(ExitEventArgs e)
