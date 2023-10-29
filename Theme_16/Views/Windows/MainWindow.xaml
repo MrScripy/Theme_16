@@ -129,7 +129,7 @@
                   Grid.ColumnSpan="4"
                   Margin="20"
                   >
-                <views:LoginView/>
+                <views:MainView/>
             </Grid>
             
         </Grid>

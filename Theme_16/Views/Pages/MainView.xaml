@@ -5,10 +5,161 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Theme_16.Views.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1300"
+             d:DesignHeight="600" d:DesignWidth="1270"
              DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
              >
-    <Grid>
-            
-    </Grid>
+
+      
+        <Grid>
+            <Grid.RowDefinitions>
+               
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.15*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>              
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Grid.Row="0"
+                Orientation="Horizontal"
+                Margin="5"
+                HorizontalAlignment="Center"                
+                >
+                <DataGrid
+                    RowStyle="{DynamicResource DataGridRowStyle2}" 
+                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
+                    CellStyle="{DynamicResource DataGridCellStyle2}" 
+                    Style="{DynamicResource DataGridStyle2}"  
+                    Width="600" 
+                    Name="FirstDG" 
+                    Margin="0 0 10 0"
+                    ItemsSource="{Binding Customers}"
+                    AutoGenerateColumns="False"
+                    BorderBrush="AliceBlue"
+                    BorderThickness="1"
+                    >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="N" IsReadOnly="True" Binding="{Binding Path=Id}"/>
+                        <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"/>
+                        <DataGridTextColumn Header="Patronymic" IsReadOnly="True" Binding="{Binding Path=Patronymic}"/>
+                        <DataGridTextColumn Header="Surname" IsReadOnly="True" Binding="{Binding Path=Surname}"/>
+                        <DataGridTextColumn Header="Phone" IsReadOnly="True" Binding="{Binding Path=Phone}"/>
+                        <DataGridTextColumn Header="E-mail" IsReadOnly="True" Binding="{Binding Path=Mail}"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+
+                <DataGrid 
+                    RowStyle="{DynamicResource DataGridRowStyle2}" 
+                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
+                    CellStyle="{DynamicResource DataGridCellStyle2}" 
+                    Style="{DynamicResource DataGridStyle2}"                      
+                    Width="600" 
+                    Margin="30 0 0 0"
+                    BorderBrush="AliceBlue"
+                    BorderThickness="1"
+                    >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="N" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Order N" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Product name" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </StackPanel>
+
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                >
+
+                <Button   
+                    Style="{StaticResource ButtonStyle}"
+                    Width="150"
+                    Height="40"
+                    Padding="5"
+                    Content="Change"
+                    Margin="5"                   
+                    >                  
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" Height="40"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" 
+                                              HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+
+                <Button   
+                    Style="{StaticResource ButtonStyle}"
+                    Width="150"
+                    Height="40"                    
+                    Content="Add"
+                    Margin="5" 
+                    Click="Button_Click_3"
+                    >                    
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" Height="40"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" 
+                                              HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+
+                <Button  
+                    Style="{StaticResource ButtonStyle}"
+                    Width="150"
+                    Height="40"                    
+                    Content="Clear the tables"
+                    Margin="5"
+                    >                    
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" Height="40"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" 
+                                              HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                
+            </StackPanel>
+
+            <StackPanel
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="5"
+                >
+                <TextBlock
+                    Text="Status"
+                    Foreground="DarkGray"
+                    FontSize="17"
+                    VerticalAlignment="Center"
+                    FontWeight="Medium"
+                    FontFamily="Mongolian Baiti"
+                    Margin="3"
+                    />
+                
+            </StackPanel>
+        </Grid>
+
 </UserControl>
