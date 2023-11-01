@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using Theme_16.Services.Interfaces;
+using Theme_16.Stores;
+using Theme_16.ViewModels;
 
 namespace Theme_16.Services
 {
@@ -7,6 +10,8 @@ namespace Theme_16.Services
     {
         public static IServiceCollection AddServices(this IServiceCollection services) => services
             .AddSingleton<IDataCreator, DataCreator>()
+            .AddTransient<NavigationService<NavigationStore, MainViewModel>>()
+            .AddTransient<Func<MainViewModel>>(s => () => App.Services.GetRequiredService<MainViewModel>())
             ;
     }
 }

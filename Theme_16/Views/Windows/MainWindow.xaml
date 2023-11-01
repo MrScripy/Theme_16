@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:Theme_16"
         xmlns:views="clr-namespace:Theme_16.Views.Pages"
+        xmlns:vm ="clr-namespace:Theme_16.ViewModels"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         
         Height="600" Width="1300"
@@ -53,11 +54,17 @@
                   Grid.ColumnSpan="4"
                   Margin="20"
                   >
-                <views:LoginView/>
-                <!--<views:MainView/>-->
+                <Grid.Resources>
+                    <DataTemplate DataType="{x:Type vm:MainViewModel}">
+                        <views:MainView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+                        <views:LoginView/>
+                    </DataTemplate>
+                </Grid.Resources>
+
+                <ContentControl Content="{Binding CurrentViewModel}"/>
             </Grid>
-            
-            
         </Grid>
     </Border>
 </Window>

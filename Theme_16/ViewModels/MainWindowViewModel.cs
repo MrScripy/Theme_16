@@ -8,11 +8,19 @@ using Theme_16.Infrastrucutre.Commands;
 using System.Threading.Tasks;
 using System;
 using System.Diagnostics;
+using Theme_16.Stores;
 
 namespace Theme_16.ViewModels
 {
     internal class MainWindowViewModel : ViewModel, IDisposable
     {
+
+        private readonly NavigationStore _navigationStore;
+
+        public ViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
+      
+
+
         private readonly string _connectionCustomersString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\Barbarossa\1_C#\16\Theme_16\Theme_16\Data\CustomersDB.mdf;Integrated Security=True";
         private readonly string _connectionOrdersString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\Barbarossa\1_C#\16\Theme_16\Theme_16\Data\OrdersDB.mdf;Integrated Security=True";
 
@@ -49,13 +57,13 @@ namespace Theme_16.ViewModels
 
 
 
-        public MainWindowViewModel(IDataCreator dataCreator)
+        public MainWindowViewModel(IDataCreator dataCreator, NavigationStore navigationStore)
         {
 
 
             _customersConnection = new SqlConnection(_connectionCustomersString);
-
-           
+            _navigationStore = navigationStore;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
             //_dataCreator = dataCreator;
             //SqlConnection connection = new SqlConnection(_connectionOrdersString);
@@ -65,6 +73,11 @@ namespace Theme_16.ViewModels
             //    _dataCreator.CreateOrders(_connectionOrdersString);
             //});
 
+        }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
 
         private async Task DownloadCustomersData()

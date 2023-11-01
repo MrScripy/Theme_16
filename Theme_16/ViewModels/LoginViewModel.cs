@@ -1,7 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using Theme_16.Infrastrucutre.Commands;
 using Theme_16.ModelViews.Base;
+using Theme_16.Services;
+using Theme_16.Stores;
 
 namespace Theme_16.ViewModels
 {
@@ -9,7 +12,7 @@ namespace Theme_16.ViewModels
     {
         private readonly string _login = "User123";
         private readonly string _password = "password123";
-
+        private readonly NavigationService<NavigationStore, MainViewModel> _mainVM_NavigationService;
         private string _checkedLogin = "";
         public string CheckedLogin
         {
@@ -36,13 +39,23 @@ namespace Theme_16.ViewModels
         private void OnConnectCommandExecuted(object p)
         {
             if(CheckedPassword == _password && CheckedLogin == _login)
-            {
-                MessageBox.Show("Все правильно, но дальше я пока не придумала", "Гуд!", MessageBoxButton.OK, MessageBoxImage.Information);
+            {               
+                _mainVM_NavigationService.Navigate();
             }
             else
             {
                 MessageBox.Show("Неправильный логин и/или пароль", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+
+        public LoginViewModel(NavigationService<NavigationStore, MainViewModel> navigationService)
+        {
+            _mainVM_NavigationService = navigationService;
+        }
+
+        public LoginViewModel()
+        {
         }
     }
 }

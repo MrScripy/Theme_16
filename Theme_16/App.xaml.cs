@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Windows;
 using Theme_16.Services;
+using Theme_16.Stores;
 using Theme_16.ViewModels;
 using Theme_16.Views;
 using Theme_16.Views.Windows;
@@ -20,6 +21,7 @@ namespace Theme_16
             .AddServices()
             .AddViewModels()       
             .AddViews()
+            .AddStores()
             ;
 
         public static IServiceProvider Services => Host.Services;
@@ -29,9 +31,13 @@ namespace Theme_16
             var host = Host;
             base.OnStartup(e);
             await host.StartAsync();
-            MainWindow mainWindow = App.Services.GetService<MainWindow>();
+
+            App.Services.GetRequiredService<NavigationStore>().CurrentViewModel = new LoginViewModel();
+
+            MainWindow? mainWindow = App.Services.GetService<MainWindow>();
             if (mainWindow != null)
                 mainWindow.Show();
+
         }
 
         protected override async void OnExit(ExitEventArgs e)
