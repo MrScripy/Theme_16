@@ -6,7 +6,6 @@ using Theme_16.Services;
 using Theme_16.Stores;
 using Theme_16.ViewModels;
 using Theme_16.Views;
-using Theme_16.Views.Windows;
 
 namespace Theme_16
 {
