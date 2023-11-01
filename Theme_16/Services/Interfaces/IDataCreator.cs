@@ -6,7 +6,7 @@ namespace Theme_16.Services.Interfaces
 {
     internal interface IDataCreator
     {
-        Task CreateCustomers(string _connectionCustomersString);
-        Task CreateOrders(string _connectionOrdersString);
+        Task CreateCustomers();
+        Task CreateOrders();
     }
 }

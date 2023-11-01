@@ -12,6 +12,8 @@ namespace Theme_16.Services
 {
     internal class DataCreator : IDataCreator
     {
+        string connectionString = @"Server=(localdb)\mssqllocaldb;Database=master;Trusted_Connection=True";
+
         IEnumerable<Person> _testCustomers;
         IEnumerable<Order> _orders;
 
@@ -46,10 +48,10 @@ namespace Theme_16.Services
         /// Method creates test customers, creates table in DB and adds customers there
         /// </summary>
         /// <returns></returns>
-        public async Task CreateCustomers(string _connectionCustomersString)
+        public async Task CreateCustomers()
         {
            
-            using (SqlConnection connection = new SqlConnection(_connectionCustomersString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
 
@@ -86,10 +88,10 @@ namespace Theme_16.Services
         /// Method creates test orders, creates table in DB and adds orders there
         /// </summary>
         /// <returns></returns>
-        public async Task CreateOrders(string _connectionOrdersString)
+        public async Task CreateOrders()
         {
 
-            using (SqlConnection connection = new SqlConnection(_connectionOrdersString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 Debug.WriteLine("Opend connection to DB (create orders)");

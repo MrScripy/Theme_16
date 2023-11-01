@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <Folder Include="Infrastrucutre\Converters\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

@@ -11,8 +11,10 @@ namespace Theme_16.ViewModels
 {
     internal class MainViewModel : ViewModel, IDisposable
     {
-        private readonly string _connectionCustomersString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\Barbarossa\1_C#\16\Theme_16\Theme_16\Data\CustomersDB.mdf;Integrated Security=True";
-        private readonly string _connectionOrdersString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\Barbarossa\1_C#\16\Theme_16\Theme_16\Data\OrdersDB.mdf;Integrated Security=True";
+        //private readonly string _connectionCustomersString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\Barbarossa\1_C#\16\Theme_16\Theme_16\Data\CustomersDB.mdf;Integrated Security=True";
+        // private readonly string _connectionOrdersString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\Barbarossa\1_C#\16\Theme_16\Theme_16\Data\OrdersDB.mdf;Integrated Security=True";
+        private readonly string _connectionCustomersString = @"Server=(LocalDB)\MSSQLLocalDB;Database=CustomersDB.mdf;Trusted_Connection=True";
+        private readonly string _connectionOrdersString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OrdersDB.mdf;Trusted_Connection=True";
 
 
 
@@ -36,26 +38,23 @@ namespace Theme_16.ViewModels
 
         public MainViewModel(IDataCreator dataCreator)
         {
+
             _customersConnection = new SqlConnection(_connectionCustomersString);
 
+           //     _ = DownloadCustomersData();
             
-            try
-            {
-                _ = DownloadCustomersData();
-            }
-            catch (Exception ex)
-            {
-                _dataCreator = dataCreator;
-                SqlConnection connection = new SqlConnection(_connectionOrdersString);
-                Task.Run(() =>
-                {
-                    _dataCreator.CreateCustomers(_connectionCustomersString);
-                    _dataCreator.CreateOrders(_connectionOrdersString);
-                });
+          
+                //_dataCreator = dataCreator;
+                //SqlConnection connection = new SqlConnection(_connectionOrdersString);
+                //Task.Run(() =>
+                //{
+                //    _dataCreator.CreateCustomers();
+                //    _dataCreator.CreateOrders();
+                //});
 
-                Debug.WriteLine("Kind of finished creating DB");
+                //Debug.WriteLine("Kind of finished creating DB");
                 _ = DownloadCustomersData();
-            }
+            
         }
 
         private async Task DownloadCustomersData()
