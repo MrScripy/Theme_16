@@ -5,5 +5,11 @@
     <SolidColorBrush x:Key="WhiteBrush" Color="White"/>
     <SolidColorBrush x:Key="LightGrayBrush" Color="LightGray"/>
     <SolidColorBrush x:Key="DarkGrayBrush" Color="DarkGray"/>
+    <SolidColorBrush x:Key="PinkBrush" Color="#DA34AE"/>
+    <SolidColorBrush x:Key="BlueBrush" Color="#28AEED"/>
+    <SolidColorBrush x:Key="DarkBlueBrush" Color="#278BEF"/>
+    <SolidColorBrush x:Key="AliceBlueBrush" Color="AliceBlue"/>
+    <SolidColorBrush x:Key="GreenBrush" Color="Green"/>
+    <SolidColorBrush x:Key="RedBrush" Color="Red"/>
 
 </ResourceDictionary>

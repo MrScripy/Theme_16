@@ -1,10 +1,9 @@
 ﻿<UserControl x:Class="Theme_16.Views.Pages.LoginView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Theme_16.Views.Pages"
-             mc:Ignorable="d" 
+             xmlns:l="clr-namespace:Theme_16.Views.Pages" xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
              d:DesignHeight="600" d:DesignWidth="1300"
              DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}"
              >
@@ -12,9 +11,10 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
+                <RowDefinition Height="45"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1" 
+            <Grid Grid.Row="0" 
                   HorizontalAlignment="Center" 
                   VerticalAlignment="Center"
                   >
@@ -57,11 +57,27 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Padding="10 4"
-                        Style="{StaticResource ButtonStyle}"  
+                        Style="{StaticResource BigPinkBtn}"  
                         Command="{Binding ConnectCommand}"
                        />
-
             </Grid>
-        </Grid>
+            
+            
+            <StackPanel Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="5"
+                        >
+            <TextBlock Style="{StaticResource StatusTextBlockStyle}"
+                          >
+                <Run Text="Status"/>
+                <materialIcons:MaterialIcon Kind="DatabaseEyeOff"
+                                            Height="24"
+                                            Width="24"
+                                            Foreground="{StaticResource RedBrush}"
+                                            />
+            </TextBlock>
+            </StackPanel>
+            
+    </Grid>
   
 </UserControl>

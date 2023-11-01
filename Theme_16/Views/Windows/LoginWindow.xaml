@@ -13,66 +13,20 @@
         >
 
 
-    <Border
-        BorderThickness="3"
-        CornerRadius="15"
-        >
-        <Border.BorderBrush>
-            <LinearGradientBrush>
-                <GradientStop Color="#462AD8" Offset="0.5"/>
-                <GradientStop Color="#DA34AE" Offset="0.75"/>
-                <GradientStop Color="#8A16C1" Offset="1"/>
-            </LinearGradientBrush>
-        </Border.BorderBrush>
-        <Border.Background>
-            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Color="#060531" Offset="0.5"/>
-                <GradientStop Color="#1B1448" Offset="0.75"/>
-            </LinearGradientBrush>
-        </Border.Background>
-
+    <Border Style="{StaticResource GradientBorder}"
+            >
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="1*"/>
-
             </Grid.RowDefinitions>
 
-            <Button                
-                Grid.Row="0"
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                Padding="5"
-                BorderThickness="0"
-                Content="X"
-                Foreground="White"
-                FontFamily="Mongolian Baiti"
-                FontSize="12"
-                Click="Button_Click"  
-                Margin="0,0,10,0"
-                >
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#DA34AE"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#C62DAE"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Width="18" Height="18"
-                                CornerRadius="9"
-                                Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center" 
-                                              HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+            <Button Style="{StaticResource CloseButton}"  
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Click="Button_Click"  
+                    Margin="0,0,10,0"
+                    />
 
             <Grid Grid.Row="1" Margin="20">
                 <Grid.RowDefinitions>
@@ -80,14 +34,15 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition Height="1.1*"/>
+                    <RowDefinition Height="1.3*"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="Login" 
                            Grid.Row="0"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Style="{StaticResource TextBlockStyle}"/>
+                           Style="{StaticResource TextBlockStyle}"
+                           />
 
                 <TextBox Grid.Row="1"
                          Style="{StaticResource TextBoxStyle}"                         
@@ -96,7 +51,8 @@
 
                 <TextBlock Text="Password" 
                            Grid.Row="2"                           
-                           Style="{StaticResource TextBlockStyle}"/>
+                           Style="{StaticResource TextBlockStyle}"
+                           />
 
                 <TextBox Grid.Row="3" 
                          Style="{StaticResource TextBoxStyle}"
@@ -108,14 +64,12 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Padding="10 4"
-                        Style="{StaticResource ButtonStyle}"  
+                        Style="{StaticResource BigPinkBtn}"  
                         Command="{Binding ConnectCommand}"
                         Margin="0 2 0 0"
                        />
 
             </Grid>
-
         </Grid>
-
     </Border>
 </Window>

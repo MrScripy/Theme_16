@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Theme_16.Views.Pages"
+             xmlns:l="clr-namespace:Theme_16.Views.Pages"
+             xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1270"
              DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
@@ -15,7 +17,7 @@
                
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="0.15*"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="45"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>              
@@ -39,7 +41,7 @@
                     Margin="0 0 10 0"
                     ItemsSource="{Binding Customers}"
                     AutoGenerateColumns="False"
-                    BorderBrush="AliceBlue"
+                    BorderBrush="{StaticResource AliceBlueBrush}"
                     BorderThickness="1"
                     >
                     <DataGrid.Columns>
@@ -61,7 +63,7 @@
                     Style="{DynamicResource DataGridStyle2}"                      
                     Width="600" 
                     Margin="30 0 0 0"
-                    BorderBrush="AliceBlue"
+                    BorderBrush="{StaticResource AliceBlueBrush}"
                     BorderThickness="1"
                     >
                     <DataGrid.Columns>
@@ -81,83 +83,41 @@
                 HorizontalAlignment="Center"
                 >
 
-                <Button   
-                    Style="{StaticResource ButtonStyle}"
+            <Button Style="{StaticResource BigPinkBtn}"
                     Width="150"
                     Height="40"
-                    Padding="5"
                     Content="Change"
-                    Margin="5"                   
-                    >                  
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="150" Height="40"
-                                CornerRadius="9"
-                                Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center" 
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                    Margin="5"   
+                    />
 
 
-                <Button   
-                    Style="{StaticResource ButtonStyle}"
+            <Button Style="{StaticResource BigPinkBtn}"
                     Width="150"
                     Height="40"                    
                     Content="Add"
-                    Margin="5" 
-                    Click="Button_Click_3"
-                    >                    
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="150" Height="40"
-                                CornerRadius="9"
-                                Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center" 
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                    Margin="5"                     
+                    />
 
-                </Button>
-
-                <Button  
-                    Style="{StaticResource ButtonStyle}"
+            <Button Style="{StaticResource BigPinkBtn}"
                     Width="150"
                     Height="40"                    
                     Content="Clear the tables"
                     Margin="5"
-                    >                    
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="150" Height="40"
-                                CornerRadius="9"
-                                Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center" 
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                
-            </StackPanel>
+                    />
+        </StackPanel>
 
             <StackPanel
                 Grid.Row="2"
                 Grid.Column="0"
                 Margin="5"
                 >
-                <TextBlock
-                    Text="Status"
-                    Foreground="DarkGray"
-                    FontSize="17"
-                    VerticalAlignment="Center"
-                    FontWeight="Medium"
-                    FontFamily="Mongolian Baiti"
-                    Margin="3"
-                    />
+                <TextBlock Style="{StaticResource StatusTextBlockStyle}">
+                    <Run Text="Status"/>
+                    <materialIcons:MaterialIcon Kind="DatabaseEye"
+                                                Height="24"
+                                                Width="24"
+                                                Foreground="{StaticResource GreenBrush}"/>
+            </TextBlock>
                 
             </StackPanel>
         </Grid>
