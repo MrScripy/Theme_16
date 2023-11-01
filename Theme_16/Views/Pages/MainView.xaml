@@ -11,19 +11,19 @@
              DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
              >
 
-      
-        <Grid>
-            <Grid.RowDefinitions>
-               
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="0.15*"/>
-                <RowDefinition Height="45"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>              
-            </Grid.ColumnDefinitions>
 
-            <StackPanel
+    <Grid>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
                 Grid.Row="0"
@@ -31,51 +31,50 @@
                 Margin="5"
                 HorizontalAlignment="Center"                
                 >
-                <DataGrid
-                    RowStyle="{DynamicResource DataGridRowStyle2}" 
-                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
-                    CellStyle="{DynamicResource DataGridCellStyle2}" 
-                    Style="{DynamicResource DataGridStyle2}"  
-                    Width="600" 
-                    Name="FirstDG" 
-                    Margin="0 0 10 0"
-                    ItemsSource="{Binding Customers}"
-                    AutoGenerateColumns="False"
-                    BorderBrush="{StaticResource AliceBlueBrush}"
-                    BorderThickness="1"
-                    >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="N" IsReadOnly="True" Binding="{Binding Path=Id}"/>
-                        <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"/>
-                        <DataGridTextColumn Header="Patronymic" IsReadOnly="True" Binding="{Binding Path=Patronymic}"/>
-                        <DataGridTextColumn Header="Surname" IsReadOnly="True" Binding="{Binding Path=Surname}"/>
-                        <DataGridTextColumn Header="Phone" IsReadOnly="True" Binding="{Binding Path=Phone}"/>
-                        <DataGridTextColumn Header="E-mail" IsReadOnly="True" Binding="{Binding Path=Mail}"/>
-                    </DataGrid.Columns>
+            <DataGrid Name="CustomersDG"  
+                      RowStyle="{DynamicResource DataGridRowStyle2}"   
+                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}"  
+                      CellStyle="{DynamicResource DataGridCellStyle2}" 
+                      Style="{DynamicResource DataGridStyle2}"  
+                      Width="600" 
+                      Margin="0 0 10 0"
+                      ItemsSource="{Binding Customers}"
+                      AutoGenerateColumns="False"
+                      BorderBrush="{StaticResource AliceBlueBrush}"
+                      BorderThickness="1"
+                      >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="N" IsReadOnly="True" Binding="{Binding Path=Id}"/>
+                    <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"/>
+                    <DataGridTextColumn Header="Patronymic" IsReadOnly="True" Binding="{Binding Path=Patronymic}"/>
+                    <DataGridTextColumn Header="Surname" IsReadOnly="True" Binding="{Binding Path=Surname}"/>
+                    <DataGridTextColumn Header="Phone" IsReadOnly="True" Binding="{Binding Path=Phone}"/>
+                    <DataGridTextColumn Header="E-mail" IsReadOnly="True" Binding="{Binding Path=Mail}"/>
+                </DataGrid.Columns>
 
-                </DataGrid>
+            </DataGrid>
 
 
-                <DataGrid 
-                    RowStyle="{DynamicResource DataGridRowStyle2}" 
-                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
-                    CellStyle="{DynamicResource DataGridCellStyle2}" 
-                    Style="{DynamicResource DataGridStyle2}"                      
-                    Width="600" 
-                    Margin="30 0 0 0"
-                    BorderBrush="{StaticResource AliceBlueBrush}"
-                    BorderThickness="1"
-                    >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="N" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Order N" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Product name" IsReadOnly="True"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+            <DataGrid Name="OrdersDG"
+                      RowStyle="{DynamicResource DataGridRowStyle2}" 
+                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
+                      CellStyle="{DynamicResource DataGridCellStyle2}" 
+                      Style="{DynamicResource DataGridStyle2}"        
+                      Width="600" 
+                      Margin="30 0 0 0"
+                      BorderBrush="{StaticResource AliceBlueBrush}"
+                      BorderThickness="1"
+                      >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="N" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Order N" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Product name" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
 
-            </StackPanel>
+        </StackPanel>
 
-            <StackPanel
+        <StackPanel
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
@@ -106,20 +105,20 @@
                     />
         </StackPanel>
 
-            <StackPanel
+        <StackPanel
                 Grid.Row="2"
                 Grid.Column="0"
                 Margin="5"
                 >
-                <TextBlock Style="{StaticResource StatusTextBlockStyle}">
+            <TextBlock Style="{StaticResource StatusTextBlockStyle}">
                     <Run Text="Status"/>
                     <materialIcons:MaterialIcon Kind="DatabaseEye"
                                                 Height="24"
                                                 Width="24"
                                                 Foreground="{StaticResource GreenBrush}"/>
             </TextBlock>
-                
-            </StackPanel>
-        </Grid>
+
+        </StackPanel>
+    </Grid>
 
 </UserControl>

@@ -31,7 +31,7 @@ namespace Theme_16
             base.OnStartup(e);
             await host.StartAsync();
 
-            App.Services.GetRequiredService<NavigationStore>().CurrentViewModel = new LoginViewModel();
+           // App.Services.GetRequiredService<NavigationStore>().CurrentViewModel = new LoginViewModel();
 
             MainWindow? mainWindow = App.Services.GetService<MainWindow>();
             if (mainWindow != null)
