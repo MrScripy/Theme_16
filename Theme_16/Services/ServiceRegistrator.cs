@@ -9,7 +9,6 @@ namespace Theme_16.Services
     internal static class ServiceRegistrator
     {
         public static IServiceCollection AddServices(this IServiceCollection services) => services
-            .AddSingleton<IDataCreator, DataCreator>()
             .AddTransient<NavigationService<NavigationStore, MainViewModel>>()
             .AddTransient<Func<MainViewModel>>(s => () => App.Services.GetRequiredService<MainViewModel>())
             ;

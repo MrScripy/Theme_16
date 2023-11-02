@@ -6,7 +6,6 @@ namespace Theme_16.Services.Interfaces
 {
     internal interface IDataCreator
     {
-        Task CreateCustomers();
-        Task CreateOrders();
+        Task FillDB();
     }
 }

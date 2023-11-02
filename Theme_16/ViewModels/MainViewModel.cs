@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Theme_16.Models;
 using Theme_16.ModelViews.Base;
+using Theme_16.Services;
 using Theme_16.Services.Interfaces;
 
 namespace Theme_16.ViewModels
@@ -36,25 +37,17 @@ namespace Theme_16.ViewModels
             private set => Set(ref _orders, value);
         }
 
-        public MainViewModel(IDataCreator dataCreator)
+        public MainViewModel()
         {
 
             _customersConnection = new SqlConnection(_connectionCustomersString);
 
-           //     _ = DownloadCustomersData();
-            
-          
-                //_dataCreator = dataCreator;
-                //SqlConnection connection = new SqlConnection(_connectionOrdersString);
-                //Task.Run(() =>
-                //{
-                //    _dataCreator.CreateCustomers();
-                //    _dataCreator.CreateOrders();
-                //});
+            _dataCreator = new DataCreator(_connectionCustomersString, _connectionOrdersString);
 
-                //Debug.WriteLine("Kind of finished creating DB");
-                _ = DownloadCustomersData();
+            _dataCreator.FillDB();
             
+            _ = DownloadCustomersData();
+
         }
 
         private async Task DownloadCustomersData()
