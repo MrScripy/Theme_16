@@ -1,8 +1,12 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Theme_16.Data;
+using Theme_16.Infrastrucutre.Commands;
 using Theme_16.Models;
 using Theme_16.ModelViews.Base;
 using Theme_16.Services;
@@ -12,19 +16,11 @@ namespace Theme_16.ViewModels
 {
     internal class MainViewModel : ViewModel, IDisposable
     {
-        //private readonly string _connectionCustomersString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\Barbarossa\1_C#\16\Theme_16\Theme_16\Data\CustomersDB.mdf;Integrated Security=True";
-        // private readonly string _connectionOrdersString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\Barbarossa\1_C#\16\Theme_16\Theme_16\Data\OrdersDB.mdf;Integrated Security=True";
-        private readonly string _connectionCustomersString = @"Server=(LocalDB)\MSSQLLocalDB;Database=CustomersDB.mdf;Trusted_Connection=True";
-        private readonly string _connectionOrdersString = @"Server=(LocalDB)\MSSQLLocalDB;Database=OrdersDB.mdf;Trusted_Connection=True";
-
-
-
-        private SqlConnection _customersConnection;
-
+        private SqlConnection _customersConnection = new SqlConnection(ConnectionStore.ConnectionDB);
         private IDataCreator _dataCreator;
 
-        private List<Person> _customers = new List<Person>();
-        public List<Person> Customers
+        private ObservableCollection<Person> _customers;
+        public ObservableCollection<Person> Customers
         {
             get => _customers;
             private set => Set(ref _customers, value);
@@ -39,63 +35,70 @@ namespace Theme_16.ViewModels
 
         public MainViewModel()
         {
+            DownloadCustomersData();
+        }
 
-            _customersConnection = new SqlConnection(_connectionCustomersString);
+        private ICommand _addCommand;
+        public ICommand AddCommand => _addCommand ??=
+            new LambdaCommand(OnAddCommandExecuted, CanAddCommandExecute);
 
-            _dataCreator = new DataCreator(_connectionCustomersString, _connectionOrdersString);
-
-            _dataCreator.FillDB();
-            
-            _ = DownloadCustomersData();
+        private bool CanAddCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnAddCommandExecuted(object p)
+        {
 
         }
 
         private async Task DownloadCustomersData()
         {
-            await _customersConnection.OpenAsync();
-
-            string sqlExpression = "SELECT * FROM Customers";
-
-            SqlCommand command = new SqlCommand(sqlExpression, _customersConnection);
-
-            try
+            _customers = new ObservableCollection<Person>();
+            using (_customersConnection)
             {
-                SqlDataReader reader = await command.ExecuteReaderAsync();
+                await _customersConnection.OpenAsync();
 
-                while (await reader.ReadAsync())
+                string sqlExpression = "SELECT * FROM Customers";
+
+                SqlCommand command = new SqlCommand(sqlExpression, _customersConnection);
+
+                try
                 {
-                    int id = reader.GetInt32(0);
-                    string name = reader.GetString(1);
-                    string patronymic = reader.GetString(2);
-                    string surname = reader.GetString(3);
-                    int phone = reader.GetInt32(4);
-                    string mail = reader.GetString(5);
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
 
-                    _customers.Add(new Person()
+                    while (await reader.ReadAsync())
                     {
-                        Id = id,
-                        Name = name,
-                        Patronymic = patronymic,
-                        Surname = surname,
-                        Phone = phone,
-                        Mail = mail
-                    });
-                    Debug.WriteLine("Added new customer");
+                        int id = reader.GetInt32(0);
+                        string name = reader.GetString(1);
+                        string patronymic = reader.GetString(2);
+                        string surname = reader.GetString(3);
+                        int phone = reader.GetInt32(4);
+                        string mail = reader.GetString(5);
+                        Customers.Add(new Person()
+                        {
+                            Id = id,
+                            Name = name,
+                            Patronymic = patronymic,
+                            Surname = surname,
+                            Phone = phone,
+                            Mail = mail
+                        });
+                        Debug.WriteLine("Added new customer");
+                    }
                 }
-                OnPropertyChanged(nameof(Customers));
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine("Чтение не удалось!");
+                }
+            }
 
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                Debug.WriteLine("Чтение не удалось!");
-            }
         }
 
         public void Dispose()
         {
-            _customersConnection.Close();
             _customersConnection.Dispose();
+
         }
 
     }

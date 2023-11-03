@@ -7,38 +7,34 @@ using System.Threading.Tasks;
 using Theme_16.Models;
 using Theme_16.Service;
 using Theme_16.Services.Interfaces;
+using Theme_16.Data;
 
 namespace Theme_16.Services
 {
     internal class DataCreator : IDataCreator
     {
-        // string connectionString = @"Server=(localdb)\mssqllocaldb;Database=master;Trusted_Connection=True";
-
-        private string _connectionCustomersString;
-        private string _connectionOrdersString;
-
         IEnumerable<Person> _testCustomers;
         IEnumerable<Order> _orders;
 
         Random _random = new Random();
 
-        public DataCreator(string connectionCustomersString, string connectionOrdersString)
-        {
-            _connectionCustomersString = connectionCustomersString;
-            _connectionOrdersString = connectionOrdersString;
-        }
-
 
         public async Task FillDB()
         {
             await GenerateData();
-            using (SqlConnection connection = new SqlConnection(_connectionCustomersString))
+
+
+            using (SqlConnection connection = new SqlConnection(ConnectionStore.ConnectionDB))
             {
-                await CreateCustomers(connection);
-            }
-            using (SqlConnection connection = new SqlConnection(_connectionOrdersString))
-            {
-                await CreateOrders(connection);
+                await connection.OpenAsync();
+
+                //await CreateCustomersTable(connection);
+                //await CreateOrdersTable(connection);
+
+                await CleanDB(connection);
+                await CreateCustomersData(connection);
+                await CreateOrdersData(connection);
+                connection.Close();
             }
         }
 
@@ -65,29 +61,27 @@ namespace Theme_16.Services
                 });
         }
 
+        private async Task CleanDB(SqlConnection connection)
+        {
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "TRUNCATE TABLE Customers" +
+                "TRUNCATE TABLE Orders";
+            command.Connection = connection;
+
+            await command.ExecuteNonQueryAsync();
+            Debug.WriteLine("created DB or cleaned and recreated DB");
+        }
 
         /// <summary>
         /// Method creates test customers, creates table in DB and adds customers there
         /// </summary>
         /// <returns></returns>
-        private async Task CreateCustomers(SqlConnection connection)
+        private async Task CreateCustomersData(SqlConnection connection)
         {
-            await connection.OpenAsync();
-
             Debug.WriteLine("Opend connection to DB (create customers)");
 
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "CREATE TABLE Customers (Id INT PRIMARY KEY IDENTITY, " +
-                "Name NVARCHAR(100) NOT NULL, " +
-                "Patronymic NVARCHAR(100) NOT NULL, " +
-                "Surname NVARCHAR(100) NOT NULL, " +
-                "Phone INT, " +
-                "Mail NVARCHAR(100) NOT NULL" +
-                ")";
-            command.Connection = connection;
-
-            await command.ExecuteNonQueryAsync();
-            Debug.WriteLine("Creating customers table");
 
             foreach (Person person in _testCustomers)
             {
@@ -106,22 +100,11 @@ namespace Theme_16.Services
         /// Method creates test orders, creates table in DB and adds orders there
         /// </summary>
         /// <returns></returns>
-        private async Task CreateOrders(SqlConnection connection)
+        private async Task CreateOrdersData(SqlConnection connection)
         {
-            await connection.OpenAsync();
             Debug.WriteLine("Opend connection to DB (create orders)");
 
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "CREATE TABLE Orders (Id INT PRIMARY KEY IDENTITY, " +
-                "Mail NVARCHAR(100) NOT NULL, " +
-                "ItemCode INT NOT NULL, " +
-                "ItemName NVARCHAR(100) NOT NULL" +
-                ")";
-            command.Connection = connection;
-
-            await command.ExecuteNonQueryAsync();
-            Debug.WriteLine("Creating orders table");
-
 
             foreach (Order order in _orders)
             {
@@ -133,6 +116,36 @@ namespace Theme_16.Services
 
             Debug.WriteLine("Added data to customers table");
 
+        }
+
+        private async Task CreateCustomersTable(SqlConnection connection)
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "CREATE TABLE Customers (Id INT PRIMARY KEY IDENTITY, " +
+                "Name NVARCHAR(100) NOT NULL, " +
+                "Patronymic NVARCHAR(100) NOT NULL, " +
+                "Surname NVARCHAR(100) NOT NULL, " +
+                "Phone INT, " +
+                "Mail NVARCHAR(100) NOT NULL" +
+                ")";
+            command.Connection = connection;
+
+            await command.ExecuteNonQueryAsync();
+            Debug.WriteLine("Creating customers table");
+
+        }
+        private async Task CreateOrdersTable(SqlConnection connection)
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "CREATE TABLE Orders (Id INT PRIMARY KEY IDENTITY, " +
+                "Mail NVARCHAR(100) NOT NULL, " +
+                "ItemCode INT NOT NULL, " +
+                "ItemName NVARCHAR(100) NOT NULL" +
+                ")";
+            command.Connection = connection;
+
+            await command.ExecuteNonQueryAsync();
+            Debug.WriteLine("Creating orders table");
         }
     }
 }

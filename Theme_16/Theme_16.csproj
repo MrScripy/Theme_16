@@ -27,11 +27,16 @@
     <None Update="Data\OrdersDB_log.ldf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
+    <None Update="MyDatabase.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MyDatabase_log.ldf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Infrastrucutre\Converters\" />
-    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

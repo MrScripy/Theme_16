@@ -37,11 +37,13 @@
                       CellStyle="{DynamicResource DataGridCellStyle2}" 
                       Style="{DynamicResource DataGridStyle2}"  
                       Width="600" 
-                      Margin="0 0 10 0"
-                      ItemsSource="{Binding Customers}"
+                      Margin="0 0 10 0"                      
                       AutoGenerateColumns="False"
                       BorderBrush="{StaticResource AliceBlueBrush}"
                       BorderThickness="1"
+                      ItemsSource="{Binding Customers}"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Hidden"
                       >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="N" IsReadOnly="True" Binding="{Binding Path=Id}"/>
@@ -94,7 +96,8 @@
                     Width="150"
                     Height="40"                    
                     Content="Add"
-                    Margin="5"                     
+                    Margin="5"  
+                    Command="{Binding AddCommand}"
                     />
 
             <Button Style="{StaticResource BigPinkBtn}"

@@ -11,6 +11,7 @@ namespace Theme_16.Services
         public static IServiceCollection AddServices(this IServiceCollection services) => services
             .AddTransient<NavigationService<NavigationStore, MainViewModel>>()
             .AddTransient<Func<MainViewModel>>(s => () => App.Services.GetRequiredService<MainViewModel>())
+            .AddTransient<IDataCreator, DataCreator>()
             ;
     }
 }

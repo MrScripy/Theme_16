@@ -4,6 +4,7 @@ using System.Windows.Navigation;
 using Theme_16.Infrastrucutre.Commands;
 using Theme_16.ModelViews.Base;
 using Theme_16.Services;
+using Theme_16.Services.Interfaces;
 using Theme_16.Stores;
 
 namespace Theme_16.ViewModels
@@ -13,6 +14,7 @@ namespace Theme_16.ViewModels
         private readonly string _login = "User123";
         private readonly string _password = "password123";
         private readonly NavigationService<NavigationStore, MainViewModel> _mainVM_NavigationService;
+        private readonly IDataCreator _dataCreator;
         private string _checkedLogin = "";
         public string CheckedLogin
         {
@@ -52,9 +54,11 @@ namespace Theme_16.ViewModels
         }
 
 
-        public LoginViewModel(NavigationService<NavigationStore, MainViewModel> navigationService)
+        public LoginViewModel(NavigationService<NavigationStore, MainViewModel> navigationService, IDataCreator dataCreator)
         {
             _mainVM_NavigationService = navigationService;
+            //_dataCreator = dataCreator;
+            //_dataCreator.FillDB();
         }
 
         public LoginViewModel()
