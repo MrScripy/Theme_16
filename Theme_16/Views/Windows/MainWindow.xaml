@@ -31,11 +31,14 @@
                 <ColumnDefinition Width="5"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Style="{StaticResource TtitleTextBlockStyle}"
+            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource TransparentBrush}" MouseDown="Window_MouseDown" >
+                <TextBlock Style="{StaticResource TtitleTextBlockStyle}"
                        Grid.Column="0"
-                       Text="ADO.Net Project (Theme16)"
-                       MouseDown="Window_MouseDown"
+                       Text="ADO.Net Project (Theme16)"                       
                        />
+            </Border>
+
+           
             
             <Button Style="{StaticResource MinimizeButton}"  
                     Grid.Row="0"

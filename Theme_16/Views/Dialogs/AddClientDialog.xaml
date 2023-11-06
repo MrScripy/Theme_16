@@ -28,15 +28,18 @@
                 <ColumnDefinition Width="5"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Style="{StaticResource TtitleTextBlockStyle}"
-                       Grid.Column="0"
+            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource TransparentBrush}" MouseDown="Window_MouseDown">
+                <TextBlock Style="{StaticResource TtitleTextBlockStyle}"
                        Text="Add Client"
                        />
+            </Border>
+
 
             <Button Style="{StaticResource MinimizeButton}"  
                     Grid.Row="0"
                     Grid.Column="1"
                     Command="{StaticResource MinimizeWindowCommand}"
+                    Visibility="Hidden"
                     />
 
             <Button Style="{StaticResource CloseButton}"   

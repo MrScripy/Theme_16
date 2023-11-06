@@ -29,11 +29,13 @@
                 <ColumnDefinition Width="5"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Style="{StaticResource TtitleTextBlockStyle}"
+            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource TransparentBrush}" MouseDown="Window_MouseDown">
+                <TextBlock Style="{StaticResource TtitleTextBlockStyle}"
                        Grid.Column="0"
                        Text="Change Client Info"
                        />
-
+            </Border>
+        
             <Button Style="{StaticResource MinimizeButton}"  
                     Grid.Row="0"
                     Grid.Column="1"

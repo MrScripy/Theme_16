@@ -63,7 +63,8 @@ namespace Theme_16.ViewModels
         }
         private void OnChangeCustomerCommandExecuted(object p)
         {
-
+            Window changeClientInfoDialog = new ChangeClientInfoDialog();
+            changeClientInfoDialog.ShowDialog();
         }
 
         //Add Customer
@@ -77,7 +78,7 @@ namespace Theme_16.ViewModels
         }
         private void OnAddCustomerCommandExecuted(object p)
         {
-            AddClientDialog addClientDialog = new AddClientDialog();
+            Window addClientDialog = new AddClientDialog();
             addClientDialog.ShowDialog();
         }
 
@@ -92,7 +93,8 @@ namespace Theme_16.ViewModels
         }
         private void OnAddOrderCommandExecuted(object p)
         {
-
+            Window addOrderDialog = new AddOrderDialog();
+            addOrderDialog.ShowDialog();
         }
 
         // Clear Tables

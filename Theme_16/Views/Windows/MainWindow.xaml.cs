@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using Theme_16.Views;
 
 namespace Theme_16
 {
