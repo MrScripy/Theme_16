@@ -17,7 +17,6 @@ namespace Theme_16.ViewModels
     internal class MainViewModel : ViewModel, IDisposable
     {
         private SqlConnection _customersConnection = new SqlConnection(ConnectionStore.ConnectionDB);
-        private IDataCreator _dataCreator;
 
         private ObservableCollection<Person> _customers;
         public ObservableCollection<Person> Customers
@@ -33,10 +32,9 @@ namespace Theme_16.ViewModels
             private set => Set(ref _orders, value);
         }
 
-        public MainViewModel(IDataCreator dataCreator)
+        public MainViewModel()
         {
-            _dataCreator = dataCreator;
-            _dataCreator.FillDB();
+            DownloadCustomersData();
 
         }
 
@@ -50,7 +48,6 @@ namespace Theme_16.ViewModels
         }
         private void OnAddCommandExecuted(object p)
         {
-             DownloadCustomersData();
         }
 
         private async Task DownloadCustomersData()

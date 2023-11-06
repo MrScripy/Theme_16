@@ -57,8 +57,8 @@ namespace Theme_16.ViewModels
         public LoginViewModel(NavigationService<NavigationStore, MainViewModel> navigationService, IDataCreator dataCreator)
         {
             _mainVM_NavigationService = navigationService;
-            //_dataCreator = dataCreator;
-            //_dataCreator.FillDB();
+            _dataCreator = dataCreator;
+            _dataCreator.FillDB();
         }
 
         public LoginViewModel()
