@@ -8,7 +8,7 @@
         
         Height="500" Width="490"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        WindowStyle="None" MouseDown="Window_MouseDown"
+        WindowStyle="None" 
         AllowsTransparency="True" Background="Transparent"
         Title="Add Client"
         >
@@ -36,13 +36,13 @@
             <Button Style="{StaticResource MinimizeButton}"  
                     Grid.Row="0"
                     Grid.Column="1"
-                    Click="Button_Click"
+                    Command="{StaticResource MinimizeWindowCommand}"
                     />
 
             <Button Style="{StaticResource CloseButton}"   
                     Grid.Row="0"
                     Grid.Column="2"
-                    Click="Button_Click_1"
+                    Command="{StaticResource CloseWindowCommand}"
                     />
 
 

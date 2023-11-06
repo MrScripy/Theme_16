@@ -6,20 +6,21 @@
         xmlns:l="clr-namespace:Theme_16"
         xmlns:views="clr-namespace:Theme_16.Views.Pages"
         xmlns:vm ="clr-namespace:Theme_16.ViewModels"
+        
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         
         Title="ADO.Net Project (Theme16)"
         Height="600" Width="1300"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        WindowStyle="None" MouseDown="Window_MouseDown"
+        WindowStyle="None" 
         AllowsTransparency="True" Background="Transparent"
         >
-
+    
     <Border Style="{StaticResource GradientBorder}"    
         >
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="30" />
                 <RowDefinition />
                 
             </Grid.RowDefinitions>
@@ -33,18 +34,19 @@
             <TextBlock Style="{StaticResource TtitleTextBlockStyle}"
                        Grid.Column="0"
                        Text="ADO.Net Project (Theme16)"
+                       MouseDown="Window_MouseDown"
                        />
             
             <Button Style="{StaticResource MinimizeButton}"  
                     Grid.Row="0"
                     Grid.Column="1"
-                    Click="Button_Click"
+                    Command="{StaticResource MinimizeWindowCommand}"
                     />
 
             <Button Style="{StaticResource CloseButton}"   
                     Grid.Row="0"
                     Grid.Column="2"
-                    Click="Button_Click_1"
+                    Command="{StaticResource CloseWindowCommand}"
                     />
             
             

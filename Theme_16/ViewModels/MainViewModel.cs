@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Theme_16.Data;
 using Theme_16.Infrastrucutre.Commands;
@@ -11,6 +12,7 @@ using Theme_16.Models;
 using Theme_16.ModelViews.Base;
 using Theme_16.Services;
 using Theme_16.Services.Interfaces;
+using Theme_16.Views.Dialogs;
 
 namespace Theme_16.ViewModels
 {
@@ -75,7 +77,8 @@ namespace Theme_16.ViewModels
         }
         private void OnAddCustomerCommandExecuted(object p)
         {
-
+            AddClientDialog addClientDialog = new AddClientDialog();
+            addClientDialog.ShowDialog();
         }
 
         //Add Order

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Linq;
 using System.Windows;
 using Theme_16.Services;
 using Theme_16.Stores;
@@ -12,6 +13,16 @@ namespace Theme_16
 
     public partial class App : Application
     {
+        public static Window ActiveWindow => Application.Current.Windows
+              .OfType<Window>()
+              .FirstOrDefault(w => w.IsActive);
+
+        public static Window FocusedWindow => Application.Current.Windows
+           .OfType<Window>()
+           .FirstOrDefault(w => w.IsFocused);
+
+        public static Window CurrentWindow => FocusedWindow ?? ActiveWindow;
+
         private static IHost _host;
 
         public static IHost Host => _host??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
