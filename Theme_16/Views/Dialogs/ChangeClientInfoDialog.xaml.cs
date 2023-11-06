@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Theme_16.Views.UserControls
+namespace Theme_16.Views.Dialogs
 {
     /// <summary>
-    /// Логика взаимодействия для AddClient.xaml
+    /// Логика взаимодействия для ChangeClientInfoDialog.xaml
     /// </summary>
-    public partial class AddClient : UserControl
+    public partial class ChangeClientInfoDialog : Window
     {
-        public AddClient()
+        public ChangeClientInfoDialog()
         {
             InitializeComponent();
         }

@@ -8,6 +8,7 @@
         xmlns:vm ="clr-namespace:Theme_16.ViewModels"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         
+        Title="ADO.Net Project (Theme16)"
         Height="600" Width="1300"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         WindowStyle="None" MouseDown="Window_MouseDown"

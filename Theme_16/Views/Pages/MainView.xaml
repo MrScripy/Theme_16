@@ -42,6 +42,7 @@
                       BorderBrush="{StaticResource AliceBlueBrush}"
                       BorderThickness="1"
                       ItemsSource="{Binding Customers}"
+                      SelectedItem="{Binding SelectedPerson}"
                       HorizontalScrollBarVisibility="Hidden"
                       VerticalScrollBarVisibility="Hidden"
                       >
@@ -66,11 +67,13 @@
                       Margin="30 0 0 0"
                       BorderBrush="{StaticResource AliceBlueBrush}"
                       BorderThickness="1"
+                      ItemsSource="{Binding SelectedPerson.Orders}"
+                      AutoGenerateColumns="False"
                       >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="N" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Order N" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Product name" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="N" IsReadOnly="True" Binding="{Binding Path=Id}"/>
+                    <DataGridTextColumn Header="Prodsuct Code" IsReadOnly="True" Binding="{Binding Path=ItemCode}"/>
+                    <DataGridTextColumn Header="Product name" IsReadOnly="True" Binding="{Binding Path=ItemName}"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -85,19 +88,27 @@
                 >
 
             <Button Style="{StaticResource BigPinkBtn}"
-                    Width="150"
+                    Width="150"                    
                     Height="40"
-                    Content="Change"
-                    Margin="5"   
+                    Content="Change Customer"
+                    Margin="5"  
+                    Command="{Binding ChangeCustomerCommand}"
                     />
 
 
             <Button Style="{StaticResource BigPinkBtn}"
                     Width="150"
                     Height="40"                    
-                    Content="Add"
+                    Content="Add Customer"
                     Margin="5"  
-                    Command="{Binding AddCommand}"
+                    Command="{Binding AddCustomerCommand}"
+                    />
+            <Button Style="{StaticResource BigPinkBtn}"
+                    Width="150"
+                    Height="40"                    
+                    Content="Add Order"
+                    Margin="5"  
+                    Command="{Binding AddOrderCommand}"
                     />
 
             <Button Style="{StaticResource BigPinkBtn}"
@@ -105,6 +116,7 @@
                     Height="40"                    
                     Content="Clear the tables"
                     Margin="5"
+                    Command="{Binding ClearCommand}"
                     />
         </StackPanel>
 

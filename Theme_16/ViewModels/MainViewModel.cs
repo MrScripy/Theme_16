@@ -16,7 +16,9 @@ namespace Theme_16.ViewModels
 {
     internal class MainViewModel : ViewModel, IDisposable
     {
-        private SqlConnection _customersConnection = new SqlConnection(ConnectionStore.ConnectionDB);
+        #region Properties
+
+        private SqlConnection _connectionString = new SqlConnection(ConnectionStore.ConnectionDB);
 
         private ObservableCollection<Person> _customers;
         public ObservableCollection<Person> Customers
@@ -25,80 +27,171 @@ namespace Theme_16.ViewModels
             private set => Set(ref _customers, value);
         }
 
-        private List<Order> _orders;
-        public List<Order> Orders
+        private ObservableCollection<Order> _orders;
+        public ObservableCollection<Order> Orders
         {
             get => _orders;
             private set => Set(ref _orders, value);
         }
 
+        private Person _selectedPerson;
+        public Person SelectedPerson
+        {
+            get => _selectedPerson;
+            set => Set(ref _selectedPerson, value);
+        }
+
+        #endregion
         public MainViewModel()
         {
             DownloadCustomersData();
 
         }
 
-        private ICommand _addCommand;
-        public ICommand AddCommand => _addCommand ??=
-            new LambdaCommand(OnAddCommandExecuted, CanAddCommandExecute);
+        #region commands
+        //Change Customer
 
-        private bool CanAddCommandExecute(object p)
+        private ICommand _changeCustomerCommand;
+        public ICommand ChangeCustomerCommand => _changeCustomerCommand ??=
+            new LambdaCommand(OnChangeCustomerCommandExecuted, CanChangeCustomerCommandExecute);
+
+        private bool CanChangeCustomerCommandExecute(object p)
         {
             return true;
         }
-        private void OnAddCommandExecuted(object p)
+        private void OnChangeCustomerCommandExecuted(object p)
         {
+
         }
 
+        //Add Customer
+        private ICommand _addCustomerCommand;
+        public ICommand AddCustomerCommand => _addCustomerCommand ??=
+            new LambdaCommand(OnAddCustomerCommandExecuted, CanAddCustomerCommandExecute);
+
+        private bool CanAddCustomerCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnAddCustomerCommandExecuted(object p)
+        {
+
+        }
+
+        //Add Order
+        private ICommand _addOrderCommand;
+        public ICommand AddOrderCommand => _addOrderCommand ??=
+            new LambdaCommand(OnAddOrderCommandExecuted, CanAddOrderCommandExecute);
+
+        private bool CanAddOrderCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnAddOrderCommandExecuted(object p)
+        {
+
+        }
+
+        // Clear Tables
+        private ICommand _clearCommand;
+        public ICommand ClearCommand => _clearCommand ??=
+            new LambdaCommand(OnClearCommandExecuted, CanClearCommandExecute);
+
+        private bool CanClearCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnClearCommandExecuted(object p)
+        {
+
+        }
+        #endregion
+
+
+        #region private methods
         private async Task DownloadCustomersData()
         {
             _customers = new ObservableCollection<Person>();
-            using (_customersConnection)
+            using (_connectionString)
             {
-                await _customersConnection.OpenAsync();
-
-                string sqlExpression = "SELECT * FROM Customers";
-
-                SqlCommand command = new SqlCommand(sqlExpression, _customersConnection);
-
-                try
+                await _connectionString.OpenAsync();
+                Customers = await GetCustomersAsync();
+                foreach (Person customer in Customers)
                 {
-                    SqlDataReader reader = await command.ExecuteReaderAsync();
-
-                    while (await reader.ReadAsync())
-                    {
-                        int id = reader.GetInt32(0);
-                        string name = reader.GetString(1);
-                        string patronymic = reader.GetString(2);
-                        string surname = reader.GetString(3);
-                        int phone = reader.GetInt32(4);
-                        string mail = reader.GetString(5);
-                        Customers.Add(new Person()
-                        {
-                            Id = id,
-                            Name = name,
-                            Patronymic = patronymic,
-                            Surname = surname,
-                            Phone = phone,
-                            Mail = mail
-                        });
-                        Debug.WriteLine("Added new customer");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    Debug.WriteLine("Чтение не удалось!");
+                    customer.Orders = await GetOrdersAsync(customer);
                 }
             }
 
         }
+        private async Task<ObservableCollection<Person>> GetCustomersAsync()
+        {
+            ObservableCollection<Person> customers = new ObservableCollection<Person>();
+            string sqlCustomersExpression = "SELECT * FROM Customers";
 
+            SqlCommand getCustomersCommand = new SqlCommand(sqlCustomersExpression, _connectionString);
+
+            try
+            {
+                using (SqlDataReader customersReader = await getCustomersCommand.ExecuteReaderAsync())
+                {
+                    while (await customersReader.ReadAsync())
+                    {
+
+                        string mail = customersReader.GetString(5);
+                        customers.Add(new Person()
+                        {
+                            Id = customersReader.GetInt32(0),
+                            Name = customersReader.GetString(1),
+                            Patronymic = customersReader.GetString(2),
+                            Surname = customersReader.GetString(3),
+                            Phone = customersReader.GetInt32(4),
+                            Mail = customersReader.GetString(5)
+                        });
+
+                        Debug.WriteLine("Added new customer");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                Debug.WriteLine("Чтение не удалось!");
+            }
+            return customers;
+        }
+        private async Task<ObservableCollection<Order>> GetOrdersAsync(Person person)
+        {
+            ObservableCollection<Order> orders = new ObservableCollection<Order>();
+
+            string sqlOrdersExpression = $"SELECT * FROM Orders WHERE Mail = '{person.Mail}'";
+            SqlCommand getOrdersCommand = new SqlCommand(sqlOrdersExpression, _connectionString);
+            try
+            {
+                using (SqlDataReader ordersReader = await getOrdersCommand.ExecuteReaderAsync())
+                {
+                    while (await ordersReader.ReadAsync())
+                    {
+                        orders.Add(new Order()
+                        {
+                            Id = ordersReader.GetInt32(0),
+                            Mail = ordersReader.GetString(1),
+                            ItemCode = ordersReader.GetInt32(2),
+                            ItemName = ordersReader.GetString(3),
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("GetOrdersAsync");
+                Debug.WriteLine(ex.Message);
+            }
+            return orders;
+        }
         public void Dispose()
         {
-            _customersConnection.Dispose();
-
-        }
-
+            _connectionString.Dispose();
+        } 
+        #endregion
     }
 }
