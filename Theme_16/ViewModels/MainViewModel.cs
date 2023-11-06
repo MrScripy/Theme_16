@@ -33,9 +33,11 @@ namespace Theme_16.ViewModels
             private set => Set(ref _orders, value);
         }
 
-        public MainViewModel()
+        public MainViewModel(IDataCreator dataCreator)
         {
-            DownloadCustomersData();
+            _dataCreator = dataCreator;
+            _dataCreator.FillDB();
+
         }
 
         private ICommand _addCommand;
@@ -48,7 +50,7 @@ namespace Theme_16.ViewModels
         }
         private void OnAddCommandExecuted(object p)
         {
-
+             DownloadCustomersData();
         }
 
         private async Task DownloadCustomersData()

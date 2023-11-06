@@ -28,8 +28,8 @@ namespace Theme_16.Services
             {
                 await connection.OpenAsync();
 
-                //await CreateCustomersTable(connection);
-                //await CreateOrdersTable(connection);
+                await CreateCustomersTable(connection);
+                await CreateOrdersTable(connection);
 
                 await CleanDB(connection);
                 await CreateCustomersData(connection);
@@ -65,12 +65,20 @@ namespace Theme_16.Services
         {
 
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "TRUNCATE TABLE Customers" +
+            command.CommandText = "TRUNCATE TABLE Customers " +
                 "TRUNCATE TABLE Orders";
             command.Connection = connection;
+            try
+            {
+                await command.ExecuteNonQueryAsync();
+                Debug.WriteLine("created DB or cleaned and recreated DB");
 
-            await command.ExecuteNonQueryAsync();
-            Debug.WriteLine("created DB or cleaned and recreated DB");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("CleanDB");
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         /// <summary>
@@ -83,16 +91,23 @@ namespace Theme_16.Services
 
             SqlCommand command = connection.CreateCommand();
 
-            foreach (Person person in _testCustomers)
+            try
             {
-                command.CommandText = $"INSERT INTO Customers (Name, Patronymic, Surname, Phone, Mail) " +
-                    $"VALUES ('{person.Name}', '{person.Patronymic}', '{person.Surname}', {person.Phone}, '{person.Mail}')";
+                foreach (Person person in _testCustomers)
+                {
+                    command.CommandText = $"INSERT INTO Customers (Name, Patronymic, Surname, Phone, Mail) " +
+                        $"VALUES ('{person.Name}', '{person.Patronymic}', '{person.Surname}', {person.Phone}, '{person.Mail}')";
 
-                await command.ExecuteNonQueryAsync();
+                    await command.ExecuteNonQueryAsync();
+                }
+                Debug.WriteLine("Added data to customers table");
             }
+            catch (Exception ex)
+            {
 
-            Debug.WriteLine("Added data to customers table");
-
+                Debug.WriteLine("CreateCustomersData");
+                Debug.WriteLine(ex.Message);
+            }
         }
 
 
@@ -106,46 +121,76 @@ namespace Theme_16.Services
 
             SqlCommand command = connection.CreateCommand();
 
-            foreach (Order order in _orders)
+            try
             {
-                command.CommandText = $"INSERT INTO Orders (Mail, ItemCode, ItemName) " +
-                    $"VALUES ('{order.Mail}', {order.ItemCode}, '{order.ItemName}')";
+                foreach (Order order in _orders)
+                {
+                    command.CommandText = $"INSERT INTO Orders (Mail, ItemCode, ItemName) " +
+                        $"VALUES ('{order.Mail}', {order.ItemCode}, '{order.ItemName}')";
 
-                await command.ExecuteNonQueryAsync();
+                    await command.ExecuteNonQueryAsync();
+                }
+                Debug.WriteLine("Added data to customers table");
             }
+            catch (Exception ex)
+            {
 
-            Debug.WriteLine("Added data to customers table");
-
+                Debug.WriteLine("CreateOrdersData");
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         private async Task CreateCustomersTable(SqlConnection connection)
         {
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "CREATE TABLE Customers (Id INT PRIMARY KEY IDENTITY, " +
+            command.CommandText = "IF OBJECT_ID(N'dbo.Customers', N'U') IS NULL " +
+                    "BEGIN " +
+                    "CREATE TABLE Customers (Id INT PRIMARY KEY IDENTITY, " +
                 "Name NVARCHAR(100) NOT NULL, " +
                 "Patronymic NVARCHAR(100) NOT NULL, " +
                 "Surname NVARCHAR(100) NOT NULL, " +
                 "Phone INT, " +
-                "Mail NVARCHAR(100) NOT NULL" +
-                ")";
+                "Mail NVARCHAR(100) NOT NULL) " +
+                "END";
             command.Connection = connection;
 
-            await command.ExecuteNonQueryAsync();
-            Debug.WriteLine("Creating customers table");
+            try
+            {
+                await command.ExecuteNonQueryAsync();
+                Debug.WriteLine("Creating customers table");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("CreateCustomersTable");
+                Debug.WriteLine(ex.Message);
+            }
+
+            
 
         }
         private async Task CreateOrdersTable(SqlConnection connection)
         {
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "CREATE TABLE Orders (Id INT PRIMARY KEY IDENTITY, " +
+            command.CommandText = "IF OBJECT_ID(N'dbo.Orders', N'U') IS NULL " +
+                    "BEGIN " +
+                    "CREATE TABLE Orders (Id INT PRIMARY KEY IDENTITY, " +
                 "Mail NVARCHAR(100) NOT NULL, " +
                 "ItemCode INT NOT NULL, " +
-                "ItemName NVARCHAR(100) NOT NULL" +
-                ")";
+                "ItemName NVARCHAR(100) NOT NULL) " +
+                "END";
             command.Connection = connection;
 
-            await command.ExecuteNonQueryAsync();
-            Debug.WriteLine("Creating orders table");
+            try
+            {
+                await command.ExecuteNonQueryAsync();
+                Debug.WriteLine("Creating orders table");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("CreateOrdersTable");
+                Debug.WriteLine(ex.Message);
+            }
+           
         }
     }
 }
