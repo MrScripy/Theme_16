@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using Theme_16.Data;
 using Theme_16.Infrastrucutre.Commands;
+using Theme_16.Infrastrucutre.Commands.Base;
 using Theme_16.Models;
 using Theme_16.ModelViews.Base;
 using Theme_16.Services;
@@ -20,7 +21,7 @@ namespace Theme_16.ViewModels
     {
         #region Properties
 
-        private SqlConnection _connectionString = new SqlConnection(ConnectionStore.ConnectionDB);
+        private SqlConnection _connection = new SqlConnection(ConnectionStore.ConnectionDB);
 
         private ObservableCollection<Person> _customers;
         public ObservableCollection<Person> Customers
@@ -102,13 +103,10 @@ namespace Theme_16.ViewModels
         public ICommand ClearCommand => _clearCommand ??=
             new LambdaCommand(OnClearCommandExecuted, CanClearCommandExecute);
 
-        private bool CanClearCommandExecute(object p)
-        {
-            return true;
-        }
+        private bool CanClearCommandExecute(object p) => Customers.Count > 0 ? true : false;
         private void OnClearCommandExecuted(object p)
         {
-
+            ClearData();
         }
         #endregion
 
@@ -117,23 +115,33 @@ namespace Theme_16.ViewModels
         private async Task DownloadCustomersData()
         {
             _customers = new ObservableCollection<Person>();
-            using (_connectionString)
+
+            try
             {
-                await _connectionString.OpenAsync();
+                await _connection.OpenAsync();
                 Customers = await GetCustomersAsync();
                 foreach (Person customer in Customers)
                 {
                     customer.Orders = await GetOrdersAsync(customer);
                 }
+                _connection.Close();
             }
-
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Download Customers Data");
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                _connection.Close();
+            }
         }
         private async Task<ObservableCollection<Person>> GetCustomersAsync()
         {
             ObservableCollection<Person> customers = new ObservableCollection<Person>();
             string sqlCustomersExpression = "SELECT * FROM Customers";
 
-            SqlCommand getCustomersCommand = new SqlCommand(sqlCustomersExpression, _connectionString);
+            SqlCommand getCustomersCommand = new SqlCommand(sqlCustomersExpression, _connection);
 
             try
             {
@@ -169,7 +177,7 @@ namespace Theme_16.ViewModels
             ObservableCollection<Order> orders = new ObservableCollection<Order>();
 
             string sqlOrdersExpression = $"SELECT * FROM Orders WHERE Mail = '{person.Mail}'";
-            SqlCommand getOrdersCommand = new SqlCommand(sqlOrdersExpression, _connectionString);
+            SqlCommand getOrdersCommand = new SqlCommand(sqlOrdersExpression, _connection);
             try
             {
                 using (SqlDataReader ordersReader = await getOrdersCommand.ExecuteReaderAsync())
@@ -193,10 +201,40 @@ namespace Theme_16.ViewModels
             }
             return orders;
         }
+
+        private async Task ClearData()
+        {
+            string sqlExpression = "DELETE FROM Customers " +
+                "DELETE FROM Orders";
+
+            try
+            {
+
+                await _connection.OpenAsync();
+
+                SqlCommand sqlCommand = new SqlCommand(sqlExpression, _connection);
+                await sqlCommand.ExecuteNonQueryAsync();
+
+                Debug.WriteLine("Cleared DB");
+
+                Customers.Clear();
+
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ClearData");
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
         public void Dispose()
         {
-            _connectionString.Dispose();
-        } 
+            _connection.Dispose();
+        }
         #endregion
     }
 }

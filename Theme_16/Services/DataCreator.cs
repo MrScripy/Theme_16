@@ -71,7 +71,7 @@ namespace Theme_16.Services
             try
             {
                 await command.ExecuteNonQueryAsync();
-                Debug.WriteLine("created DB or cleaned and recreated DB");
+                Debug.WriteLine("cleared tables in DB");
 
             }
             catch (Exception ex)
