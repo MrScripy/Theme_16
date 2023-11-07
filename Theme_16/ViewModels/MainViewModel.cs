@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -57,10 +58,7 @@ namespace Theme_16.ViewModels
         public ICommand ChangeCustomerCommand => _changeCustomerCommand ??=
             new LambdaCommand(OnChangeCustomerCommandExecuted, CanChangeCustomerCommandExecute);
 
-        private bool CanChangeCustomerCommandExecute(object p)
-        {
-            return true;
-        }
+        private bool CanChangeCustomerCommandExecute(object p) => SelectedPerson != null ? true : false;
         private void OnChangeCustomerCommandExecuted(object p)
         {
             Window changeClientInfoDialog = new ChangeClientInfoDialog();
@@ -81,8 +79,49 @@ namespace Theme_16.ViewModels
             Window addClientDialog = new AddClientDialog();
             addClientDialog.ShowDialog();
             Person newCustomer = _transferService.Customer;
+
             if (newCustomer != null)
-                Customers.Add(newCustomer);
+            {
+                try
+                {
+                    _connection.Open();
+                    SqlCommand command = _connection.CreateCommand();
+                    command.CommandText = $"INSERT INTO Customers (Name, Patronymic, Surname, Phone, Mail) " +
+                            $"VALUES ('{newCustomer.Name}', '{newCustomer.Patronymic}', '{newCustomer.Surname}', {newCustomer.Phone}, '{newCustomer.Mail}')";
+
+                    command.ExecuteNonQuery();
+                    Debug.WriteLine("Added new Customer");
+
+                    command.CommandText = $"SELECT * FROM Customers WHERE Mail = '{newCustomer.Mail}'";
+
+                    using (SqlDataReader customersReader = command.ExecuteReader())
+                    {
+                        while(customersReader.Read())
+                        {
+                            Customers.Add(new Person()
+                            {
+                                Id = customersReader.GetInt32(0),
+                                Name = customersReader.GetString(1),
+                                Patronymic = customersReader.GetString(2),
+                                Surname = customersReader.GetString(3),
+                                Phone = customersReader.GetInt32(4),
+                                Mail = customersReader.GetString(5)
+                            });
+
+                            Debug.WriteLine("Added new customer");
+                        }                       
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("adding new customer is failed");
+                    Debug.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    _connection.Close();
+                }
+            }
         }
 
         //Add Order
@@ -234,6 +273,13 @@ namespace Theme_16.ViewModels
                 _connection.Close();
             }
         }
+
+        private bool CheckPersonUniqueness(Person person)
+        {
+            Person checkedPerson = Customers.FirstOrDefault<Person>( person => person.Mail == person.Mail );
+            return checkedPerson == null ? true : false;
+        }
+
         public void Dispose()
         {
             _connection.Dispose();

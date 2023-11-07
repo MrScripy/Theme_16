@@ -58,7 +58,8 @@
                         VerticalAlignment="Center"
                         Padding="10 4"
                         Style="{StaticResource BigPinkBtn}"  
-                        Command="{Binding ConnectCommand}"
+                        Command="{Binding ConnectCommand}" 
+                        
                        />
             </Grid>
             

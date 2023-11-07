@@ -4,6 +4,7 @@ using Theme_16.Infrastrucutre.Commands;
 using Theme_16.ModelViews.Base;
 using Theme_16.Views.Dialogs;
 using Theme_16.Services;
+using Theme_16.Infrastrucutre.Commands.ControlCommands;
 
 namespace Theme_16.ViewModels.DialogsVM
 {
@@ -72,6 +73,7 @@ namespace Theme_16.ViewModels.DialogsVM
                 Phone = Phone,
                 Mail = Mail
             };
+            App.CurrentWindow.Close();
         }
     }
 }
