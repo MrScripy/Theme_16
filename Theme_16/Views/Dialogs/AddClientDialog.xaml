@@ -12,6 +12,7 @@
         AllowsTransparency="True" Background="Transparent"
         Title="Add Client"
         DataContext="{Binding AddClientDialogViewModel, Source={StaticResource Locator}}"
+        Icon="../../Recources/Images/Icon.png"
         >
 
     <Border Style="{StaticResource GradientBorder}"    

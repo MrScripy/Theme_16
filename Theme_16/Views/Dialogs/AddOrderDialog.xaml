@@ -12,6 +12,7 @@
         AllowsTransparency="True" Background="Transparent"
         Title="Add Order"
         DataContext="{Binding AddOrderDialogViewModel,Source={StaticResource Locator}}"
+        Icon="../../Recources/Images/Icon.png"
         >
 
     <Border Style="{StaticResource GradientBorder}"    

@@ -12,6 +12,7 @@
         WindowStyle="None" 
         AllowsTransparency="True" Background="Transparent"
         Title="Change Client Info"
+        Icon="../../Recources/Images/Icon.png"
         >
 
     <Border Style="{StaticResource GradientBorder}"    
