@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -8,11 +7,9 @@ using System.Windows;
 using System.Windows.Input;
 using Theme_16.Data;
 using Theme_16.Infrastrucutre.Commands;
-using Theme_16.Infrastrucutre.Commands.Base;
 using Theme_16.Models;
 using Theme_16.ModelViews.Base;
 using Theme_16.Services;
-using Theme_16.Services.Interfaces;
 using Theme_16.Views.Dialogs;
 
 namespace Theme_16.ViewModels
@@ -20,6 +17,8 @@ namespace Theme_16.ViewModels
     internal class MainViewModel : ViewModel, IDisposable
     {
         #region Properties
+
+        private readonly TransferCustomerService _transferService;
 
         private SqlConnection _connection = new SqlConnection(ConnectionStore.ConnectionDB);
 
@@ -45,10 +44,10 @@ namespace Theme_16.ViewModels
         }
 
         #endregion
-        public MainViewModel()
+        public MainViewModel(TransferCustomerService transferService)
         {
             DownloadCustomersData();
-
+            _transferService = transferService;
         }
 
         #region commands
@@ -81,6 +80,9 @@ namespace Theme_16.ViewModels
         {
             Window addClientDialog = new AddClientDialog();
             addClientDialog.ShowDialog();
+            Person newCustomer = _transferService.Customer;
+            if (newCustomer != null)
+                Customers.Add(newCustomer);
         }
 
         //Add Order
@@ -100,6 +102,7 @@ namespace Theme_16.ViewModels
 
         // Clear Tables
         private ICommand _clearCommand;
+
         public ICommand ClearCommand => _clearCommand ??=
             new LambdaCommand(OnClearCommandExecuted, CanClearCommandExecute);
 

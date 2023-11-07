@@ -12,6 +12,7 @@ namespace Theme_16.Services
             .AddTransient<NavigationService<NavigationStore, MainViewModel>>()
             .AddTransient<Func<MainViewModel>>(s => () => App.Services.GetRequiredService<MainViewModel>())
             .AddTransient<IDataCreator, DataCreator>()
+            .AddSingleton<TransferCustomerService>()
             ;
     }
 }

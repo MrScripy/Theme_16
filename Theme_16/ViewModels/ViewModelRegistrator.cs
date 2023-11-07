@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Theme_16.ViewModels.DialogsVM;
 
 namespace Theme_16.ViewModels
 {
@@ -8,6 +9,7 @@ namespace Theme_16.ViewModels
             .AddSingleton<MainWindowViewModel>()
             .AddSingleton<LoginViewModel>()
             .AddSingleton<MainViewModel>()
+            .AddTransient<AddClientDialogViewModel>()
             ;
     }
 }

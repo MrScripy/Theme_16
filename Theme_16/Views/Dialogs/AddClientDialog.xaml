@@ -11,6 +11,7 @@
         WindowStyle="None" 
         AllowsTransparency="True" Background="Transparent"
         Title="Add Client"
+        DataContext="{Binding AddClientDialogViewModel, Source={StaticResource Locator}}"
         >
 
     <Border Style="{StaticResource GradientBorder}"    
@@ -178,6 +179,7 @@
                             FontSize="16"  
                             Content="Add"  
                             Margin="25, 0"
+                            Command="{Binding AddCustomerCommand}"
                             >
                         <Button.Template>
                             <ControlTemplate TargetType="Button">

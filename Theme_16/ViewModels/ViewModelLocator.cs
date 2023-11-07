@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Theme_16.ViewModels.DialogsVM;
 
 namespace Theme_16.ViewModels
 {
@@ -10,5 +11,7 @@ namespace Theme_16.ViewModels
         public LoginViewModel LoginViewModel => App.Services.GetRequiredService<LoginViewModel>();
 
         public MainViewModel MainViewModel => App.Services.GetRequiredService<MainViewModel>();
+
+        public AddClientDialogViewModel AddClientDialogViewModel => App.Services.GetRequiredService<AddClientDialogViewModel>();
     }
 }
