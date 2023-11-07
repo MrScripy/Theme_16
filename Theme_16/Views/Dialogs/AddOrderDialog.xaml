@@ -175,6 +175,7 @@
                                  HorizontalAlignment="Left"  
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
+                                 Text="{Binding ItemCode}"
                                  />
 
                         <!--Good name-->
@@ -195,6 +196,7 @@
                                  HorizontalAlignment="Left"   
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
+                                 Text="{Binding ItemName}"
                                  />
                     </Grid>
 
