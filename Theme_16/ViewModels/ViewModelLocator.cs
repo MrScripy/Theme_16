@@ -14,5 +14,6 @@ namespace Theme_16.ViewModels
 
         public AddClientDialogViewModel AddClientDialogViewModel => App.Services.GetRequiredService<AddClientDialogViewModel>();
         public AddOrderDialogViewModel AddOrderDialogViewModel => App.Services.GetRequiredService<AddOrderDialogViewModel>();
+        public ChangeClientInfoDialogViewModel ChangeClientInfoDialogViewModel => App.Services.GetRequiredService<ChangeClientInfoDialogViewModel>();
     }
 }

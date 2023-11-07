@@ -42,7 +42,11 @@ namespace Theme_16.ViewModels
         public Person SelectedPerson
         {
             get => _selectedPerson;
-            set => Set(ref _selectedPerson, value);
+            set
+            {
+                Set(ref _selectedPerson, value);
+                _transferCustomerService.Customer = SelectedPerson;
+            }
         }
 
         #endregion
@@ -63,8 +67,12 @@ namespace Theme_16.ViewModels
         private bool CanChangeCustomerCommandExecute(object p) => SelectedPerson != null ? true : false;
         private void OnChangeCustomerCommandExecuted(object p)
         {
+           
             Window changeClientInfoDialog = new ChangeClientInfoDialog();
             changeClientInfoDialog.ShowDialog();
+
+
+
         }
 
         //Add Customer

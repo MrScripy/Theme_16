@@ -7,10 +7,11 @@ namespace Theme_16.ViewModels
     {
         public static IServiceCollection AddViewModels(this IServiceCollection services) => services
             .AddSingleton<MainWindowViewModel>()
-            .AddSingleton<LoginViewModel>()
-            .AddSingleton<MainViewModel>()
-            .AddSingleton<AddClientDialogViewModel>()
-            .AddSingleton<AddOrderDialogViewModel>()
+            .AddTransient<LoginViewModel>()
+            .AddTransient<MainViewModel>()
+            .AddTransient<AddClientDialogViewModel>()
+            .AddTransient<AddOrderDialogViewModel>()
+            .AddTransient<ChangeClientInfoDialogViewModel>()
             ;
     }
 }
