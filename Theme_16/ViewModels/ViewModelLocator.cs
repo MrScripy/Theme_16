@@ -13,5 +13,6 @@ namespace Theme_16.ViewModels
         public MainViewModel MainViewModel => App.Services.GetRequiredService<MainViewModel>();
 
         public AddClientDialogViewModel AddClientDialogViewModel => App.Services.GetRequiredService<AddClientDialogViewModel>();
+        public AddOrderDialogViewModel AddOrderDialogViewModel => App.Services.GetRequiredService<AddOrderDialogViewModel>();
     }
 }

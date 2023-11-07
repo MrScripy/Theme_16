@@ -13,6 +13,7 @@ namespace Theme_16.Services
             .AddTransient<Func<MainViewModel>>(s => () => App.Services.GetRequiredService<MainViewModel>())
             .AddTransient<IDataCreator, DataCreator>()
             .AddSingleton<TransferCustomerService>()
+            .AddSingleton<TransferOrderService>()
             ;
     }
 }

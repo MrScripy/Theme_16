@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Theme_16.Data;
 using Theme_16.Infrastrucutre.Commands;
@@ -19,8 +20,8 @@ namespace Theme_16.ViewModels
     {
         #region Properties
 
-        private readonly TransferCustomerService _transferService;
-
+        private readonly TransferCustomerService _transferCustomerService;
+        private readonly TransferOrderService _transferOrderService;
         private SqlConnection _connection = new SqlConnection(ConnectionStore.ConnectionDB);
 
         private ObservableCollection<Person> _customers;
@@ -45,10 +46,11 @@ namespace Theme_16.ViewModels
         }
 
         #endregion
-        public MainViewModel(TransferCustomerService transferService)
+        public MainViewModel(TransferCustomerService transferCustomerService, TransferOrderService transferOrderService)
         {
             DownloadCustomersData();
-            _transferService = transferService;
+            _transferCustomerService = transferCustomerService;
+            _transferOrderService = transferOrderService;
         }
 
         #region commands
@@ -78,9 +80,13 @@ namespace Theme_16.ViewModels
         {
             Window addClientDialog = new AddClientDialog();
             addClientDialog.ShowDialog();
-            Person newCustomer = _transferService.Customer;
+            Person newCustomer = _transferCustomerService.Customer;
 
-            if (newCustomer != null)
+            if (!CheckPersonUniqueness(newCustomer))
+            {
+                MessageBox.Show("User with the same e-mail already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (newCustomer != null)
             {
                 try
                 {
@@ -96,7 +102,7 @@ namespace Theme_16.ViewModels
 
                     using (SqlDataReader customersReader = command.ExecuteReader())
                     {
-                        while(customersReader.Read())
+                        while (customersReader.Read())
                         {
                             Customers.Add(new Person()
                             {
@@ -109,7 +115,7 @@ namespace Theme_16.ViewModels
                             });
 
                             Debug.WriteLine("Added new customer");
-                        }                       
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -129,14 +135,52 @@ namespace Theme_16.ViewModels
         public ICommand AddOrderCommand => _addOrderCommand ??=
             new LambdaCommand(OnAddOrderCommandExecuted, CanAddOrderCommandExecute);
 
-        private bool CanAddOrderCommandExecute(object p)
-        {
-            return true;
-        }
+        private bool CanAddOrderCommandExecute(object p) => SelectedPerson != null ? true : false;
         private void OnAddOrderCommandExecuted(object p)
         {
             Window addOrderDialog = new AddOrderDialog();
             addOrderDialog.ShowDialog();
+
+            Order newOrder = _transferOrderService.Order;
+            if (newOrder != null)
+            {
+                try
+                {
+                    _connection.Open();
+                    SqlCommand command = _connection.CreateCommand();
+                    command.CommandText = $"INSERT INTO Orders (Mail, ItemCode, ItemName) " +
+                        $"VALUES ('{SelectedPerson.Mail}', {newOrder.ItemCode}, '{newOrder.ItemName}')";
+                    command.ExecuteNonQuery();
+                    Debug.WriteLine("Added new Order");
+
+                    command.CommandText = $"SELECT * FROM Orders WHERE Mail = '{SelectedPerson.Mail}'";
+
+                    using (SqlDataReader ordersReader = command.ExecuteReader())
+                    {
+                        while (ordersReader.Read())
+                        {
+                            SelectedPerson.Orders.Add(new Order()
+                            {
+                                Id = ordersReader.GetInt32(0),
+                                Mail = ordersReader.GetString(1),
+                                ItemCode = ordersReader.GetInt32(2),
+                                ItemName = ordersReader.GetString(3),
+                            });
+
+                            Debug.WriteLine("Added new order");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("adding new order is failed");
+                    Debug.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    _connection.Close();
+                }
+            }
         }
 
         // Clear Tables
@@ -276,7 +320,7 @@ namespace Theme_16.ViewModels
 
         private bool CheckPersonUniqueness(Person person)
         {
-            Person checkedPerson = Customers.FirstOrDefault<Person>( person => person.Mail == person.Mail );
+            Person checkedPerson = Customers.FirstOrDefault<Person>(person => person.Mail == person.Mail);
             return checkedPerson == null ? true : false;
         }
 

@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:Theme_16.Views.Dialogs"
         mc:Ignorable="d"
         
-        Height="500" Width="490"
+        Height="300" Width="490"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         WindowStyle="None" 
         AllowsTransparency="True" Background="Transparent"
         Title="Add Order"
+        DataContext="{Binding AddOrderDialogViewModel,Source={StaticResource Locator}}"
         >
 
     <Border Style="{StaticResource GradientBorder}"    
@@ -76,7 +77,7 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
 
-                        <!--Surname-->
+                        <!--Surname--><!--
                         <TextBlock Text="Surname"    
                                    Style="{StaticResource TextBlockStyle}"
                                    HorizontalAlignment="Right"
@@ -96,7 +97,7 @@
                                  IsReadOnly="True"
                                  />
 
-                        <!--Name-->
+                        --><!--Name--><!--
                         <TextBlock Text="Name"  
                                    Style="{StaticResource TextBlockStyle}"
                                    HorizontalAlignment="Right"
@@ -116,7 +117,7 @@
                                  IsReadOnly="True"
                                  />
 
-                        <!--Patronimyc-->
+                        --><!--Patronimyc--><!--
                         <TextBlock Text="Patronimyc"  
                                    Style="{StaticResource TextBlockStyle}"
                                    HorizontalAlignment="Right"
@@ -136,7 +137,7 @@
                                  IsReadOnly="True"
                                  />
 
-                        <!--e-mal-->
+                        --><!--e-mal--><!--
                         <TextBlock Text="E-mail"
                                    Style="{StaticResource TextBlockStyle}"
                                    HorizontalAlignment="Right"
@@ -154,7 +155,7 @@
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
                                  IsReadOnly="True"
-                                 />
+                                 />-->
 
                         <!--Good code-->
                         <TextBlock Text="Good Code"  
@@ -202,6 +203,7 @@
                             Height="30"    
                             FontSize="16" 
                             Margin="25, 0"
+                            Command="{Binding AddOrderCommand}"
                             >
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
