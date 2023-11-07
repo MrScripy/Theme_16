@@ -6,7 +6,17 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <StartupObject>Theme_16.Program</StartupObject>
+    <ApplicationIcon>Recources\Images\Icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Recources\Images\Icon.ico" />
+    <None Remove="Recources\Images\Icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Recources\Images\Icon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Material.Icons.WPF" Version="2.0.0" />
@@ -25,6 +35,11 @@
 
   <ItemGroup>
     <Folder Include="Infrastrucutre\Converters\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Recources\Images\Icon.ico" />
+    <Resource Include="Recources\Images\Icon.png" />
   </ItemGroup>
 
 </Project>
