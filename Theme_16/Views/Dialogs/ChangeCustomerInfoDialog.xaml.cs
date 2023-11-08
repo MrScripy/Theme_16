@@ -8,10 +8,8 @@ namespace Theme_16.Views.Dialogs
     /// </summary>
     public partial class ChangeCustomerInfoDialog : Window
     {
-        public ChangeCustomerInfoDialog()
-        {
-            InitializeComponent();
-        }
+        public ChangeCustomerInfoDialog() => InitializeComponent();
+
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();

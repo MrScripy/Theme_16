@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Theme_16.Services;
 using Theme_16.Stores;
 using Theme_16.ViewModels;
@@ -47,7 +47,6 @@ namespace Theme_16
             MainWindow? mainWindow = App.Services.GetService<MainWindow>();
             if (mainWindow != null)
                 mainWindow.Show();
-
         }
 
         protected override async void OnExit(ExitEventArgs e)

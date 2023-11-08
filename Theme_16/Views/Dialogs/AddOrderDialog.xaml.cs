@@ -8,14 +8,11 @@ namespace Theme_16.Views.Dialogs
     /// </summary>
     public partial class AddOrderDialog : Window
     {
-        public AddOrderDialog()
-        {
-            InitializeComponent();
-        }
+        public AddOrderDialog() => InitializeComponent();
+
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
-
     }
 }

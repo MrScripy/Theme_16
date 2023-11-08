@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Theme_16.Models;
+﻿using System.Threading.Tasks;
 
 namespace Theme_16.Services.Interfaces
 {

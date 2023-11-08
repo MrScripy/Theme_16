@@ -39,15 +39,14 @@ namespace Theme_16.ViewModels
         }
         private void OnConnectCommandExecuted(object p)
         {
-            _mainVM_NavigationService.Navigate();
-            //if (CheckedPassword == _password && CheckedLogin == _login)
-            //{
-            //    _mainVM_NavigationService.Navigate();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Wrong login and/or password", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
+            if (CheckedPassword == _password && CheckedLogin == _login)
+            {
+                _mainVM_NavigationService.Navigate();
+            }
+            else
+            {
+                MessageBox.Show("Wrong login and/or password", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
 
@@ -58,8 +57,6 @@ namespace Theme_16.ViewModels
             _dataCreator.FillDB();
         }
 
-        public LoginViewModel()
-        {
-        }
+        public LoginViewModel() { }
     }
 }

@@ -7,9 +7,7 @@ namespace Theme_16.Views.Pages
     /// </summary>
     public partial class MainView : UserControl
     {
-        public MainView()
-        {
-            InitializeComponent();
-        }
+        public MainView() => InitializeComponent();
+
     }
 }
