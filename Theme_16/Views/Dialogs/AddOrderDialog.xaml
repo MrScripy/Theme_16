@@ -1,0 +1,231 @@
+﻿<Window x:Class="Theme_16.Views.Dialogs.AddOrderDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Theme_16.Views.Dialogs"
+        mc:Ignorable="d"
+        
+        Height="300" Width="490"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        WindowStyle="None" 
+        AllowsTransparency="True" Background="Transparent"
+        Title="Add Order"
+        DataContext="{Binding AddOrderDialogViewModel,Source={StaticResource Locator}}"
+        Icon="../../Recources/Images/Icon.png"
+        >
+
+    <Border Style="{StaticResource GradientBorder}"    
+        >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition />
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="5"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource TransparentBrush}" MouseDown="Window_MouseDown">
+                <TextBlock Style="{StaticResource TtitleTextBlockStyle}"
+                       Text="Add Order"
+                       />
+            </Border>
+
+            <Button Style="{StaticResource MinimizeButton}"  
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Visibility="Hidden"
+                    />
+
+            <Button Style="{StaticResource CloseButton}"   
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Command="{StaticResource CloseWindowCommand}"
+                    />
+
+
+            <!--View-->
+
+            <Grid Grid.Row="1"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="4"
+                  Margin="20"
+                  >
+                <StackPanel Margin="0" Orientation="Vertical">
+                    <TextBlock Style="{StaticResource TextBlockStyle}"
+                               Text="Add Order"  
+                               FontSize="28"
+                               HorizontalAlignment="Center"    
+                               Margin="5"
+                               />
+
+                    <Grid Margin="15, 30, 15, 20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <!--Surname--><!--
+                        <TextBlock Text="Surname"    
+                                   Style="{StaticResource TextBlockStyle}"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="0"
+                                   Grid.Row="0"
+                                   Margin="15"
+                                   />
+
+                        <TextBox Style="{StaticResource TextBoxStyle}"
+                                 Grid.Column="1"
+                                 Grid.Row="0"
+                                 VerticalAlignment="Center"   
+                                 HorizontalAlignment="Left"  
+                                 BorderThickness="0,0,0,1"
+                                 Margin="5"
+                                 IsReadOnly="True"
+                                 />
+
+                        --><!--Name--><!--
+                        <TextBlock Text="Name"  
+                                   Style="{StaticResource TextBlockStyle}"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="0"
+                                   Grid.Row="1" 
+                                   Margin="15"
+                                   />
+
+                        <TextBox Style="{StaticResource TextBoxStyle}"
+                                 Grid.Column="1"
+                                 Grid.Row="1"
+                                 VerticalAlignment="Center"   
+                                 HorizontalAlignment="Left" 
+                                 BorderThickness="0,0,0,1"
+                                 Margin="5"
+                                 IsReadOnly="True"
+                                 />
+
+                        --><!--Patronimyc--><!--
+                        <TextBlock Text="Patronimyc"  
+                                   Style="{StaticResource TextBlockStyle}"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="0"
+                                   Grid.Row="2"
+                                   Margin="15"
+                                   />
+
+                        <TextBox Style="{StaticResource TextBoxStyle}"
+                                 Grid.Column="1"
+                                 Grid.Row="2"
+                                 VerticalAlignment="Center"   
+                                 HorizontalAlignment="Left"  
+                                 BorderThickness="0,0,0,1"
+                                 Margin="5"
+                                 IsReadOnly="True"
+                                 />
+
+                        --><!--e-mal--><!--
+                        <TextBlock Text="E-mail"
+                                   Style="{StaticResource TextBlockStyle}"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="0"
+                                   Grid.Row="3"  
+                                   Margin="15"
+                                   />
+
+                        <TextBox Style="{StaticResource TextBoxStyle}"
+                                 Grid.Column="1"
+                                 Grid.Row="3"
+                                 VerticalAlignment="Center"   
+                                 HorizontalAlignment="Left"  
+                                 BorderThickness="0,0,0,1"
+                                 Margin="5"
+                                 IsReadOnly="True"
+                                 />-->
+
+                        <!--Good code-->
+                        <TextBlock Text="Good Code"  
+                                   Style="{StaticResource TextBlockStyle}"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="0"
+                                   Grid.Row="4"
+                                   Margin="15"
+                                   />
+
+                        <TextBox Style="{StaticResource TextBoxStyle}"
+                                 Grid.Column="1"
+                                 Grid.Row="4"
+                                 VerticalAlignment="Center"  
+                                 HorizontalAlignment="Left"  
+                                 BorderThickness="0,0,0,1"
+                                 Margin="5"
+                                 Text="{Binding ItemCode, UpdateSourceTrigger=PropertyChanged}"
+                                 />
+
+                        <!--Good name-->
+                        <TextBlock Text="Good Name"
+                                   Style="{StaticResource TextBlockStyle}"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="0"
+                                   Grid.Row="5"
+                                   Margin="15"
+                                   />
+
+
+                        <TextBox Style="{StaticResource TextBoxStyle}"
+                                 Grid.Column="1"
+                                 Grid.Row="5"
+                                 VerticalAlignment="Center"  
+                                 HorizontalAlignment="Left"   
+                                 BorderThickness="0,0,0,1"
+                                 Margin="5"
+                                 Text="{Binding ItemName, UpdateSourceTrigger=PropertyChanged}"
+                                 />
+                    </Grid>
+
+                    <Button Content="Add"   
+                            Style="{StaticResource BigPinkBtn}"
+                            Width="100"
+                            Height="30"    
+                            FontSize="16" 
+                            Margin="25, 0"
+                            Command="{Binding AddOrderCommand}"
+                            >
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="100" 
+                                        Height="30"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}"
+                                        >
+                                    <ContentPresenter VerticalAlignment="Center" 
+                                                      HorizontalAlignment="Center"
+                                                      />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                </StackPanel>
+
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

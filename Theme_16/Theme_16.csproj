@@ -5,10 +5,41 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <StartupObject>Theme_16.Program</StartupObject>
+    <ApplicationIcon>Recources\Images\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Base\" />
+    <None Remove="Recources\Images\Icon.ico" />
+    <None Remove="Recources\Images\Icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Recources\Images\Icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Material.Icons.WPF" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="MyDatabase.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MyDatabase_log.ldf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infrastrucutre\Converters\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Recources\Images\Icon.ico" />
+    <Resource Include="Recources\Images\Icon.png" />
   </ItemGroup>
 
 </Project>
