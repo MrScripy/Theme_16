@@ -11,7 +11,7 @@ namespace Theme_16.ViewModels
 {
     internal class LoginViewModel : ViewModel
     {
-        private readonly string _login = "User123";
+        private readonly string _login = "user";
         private readonly string _password = "password123";
         private readonly NavigationService<NavigationStore, MainViewModel> _mainVM_NavigationService;
         private readonly IDataCreator _dataCreator;
@@ -35,22 +35,19 @@ namespace Theme_16.ViewModels
 
         private bool CanConnectCommandExecute(object p)
         {
-            if(CheckedLogin.Length > 0 && CheckedPassword.Length > 0) return true;
+            if (CheckedLogin.Length > 0 && CheckedPassword.Length > 0) return true;
             return false;
         }
         private void OnConnectCommandExecuted(object p)
         {
-            _mainVM_NavigationService.Navigate();
-
-
-            //if (CheckedPassword == _password && CheckedLogin == _login)
-            //{               
-                
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Неправильный логин и/или пароль", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
+            if (CheckedPassword == _password && CheckedLogin == _login)
+            {
+                _mainVM_NavigationService.Navigate();
+            }
+            else
+            {
+                MessageBox.Show("Wrong login and/or password", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
 

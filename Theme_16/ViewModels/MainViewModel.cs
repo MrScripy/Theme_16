@@ -257,7 +257,7 @@ namespace Theme_16.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Download Customers Data");
+                Debug.WriteLine("Download Customers Data is failed");
                 Debug.WriteLine(ex.Message);
             }
             finally
