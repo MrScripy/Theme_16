@@ -10,7 +10,7 @@ namespace Theme_16.ViewModels.DialogsVM
 {
     internal class AddOrderDialogViewModel : ViewModel
     {
-        public int ItemCode { get; set; }
+        public string ItemCode { get; set; }
         public string ItemName { get; set; }
 
         private readonly TransferOrderService _transferOrderService;

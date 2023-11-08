@@ -1,10 +1,8 @@
 ﻿using System.Windows.Input;
-using System.Windows;
 using Theme_16.Infrastrucutre.Commands;
 using Theme_16.ModelViews.Base;
-using Theme_16.Views.Dialogs;
 using Theme_16.Services;
-using Theme_16.Infrastrucutre.Commands.ControlCommands;
+using System;
 
 namespace Theme_16.ViewModels.DialogsVM
 {
@@ -35,12 +33,13 @@ namespace Theme_16.ViewModels.DialogsVM
             set => Set(ref _surname, value);
         }
 
-        private int _phone;
-        public int Phone
+        private string _phoneNum;
+        public string PhoneNum
         {
-            get => _phone;
-            set => Set(ref _phone, Phone);
+            get => _phoneNum;
+            set => Set(ref _phoneNum, value);
         }
+
         private string _mail;
         public string Mail
         {
@@ -61,7 +60,8 @@ namespace Theme_16.ViewModels.DialogsVM
 
         private bool CanAddCustomerCommandExecute(object p)
         {
-            return true;
+            if (Mail != null && Mail != string.Empty && int.TryParse(PhoneNum, out _)) return true;
+            return false;
         }
         private void OnAddCustomerCommandExecuted(object p)
         {
@@ -76,11 +76,11 @@ namespace Theme_16.ViewModels.DialogsVM
                     Name = Name,
                     Patronymic = Patronymic,
                     Surname = Surname,
-                    Phone = Phone,
+                    Phone = Int32.Parse(PhoneNum),
                     Mail = Mail
                 };
             }
-            
+
             App.CurrentWindow.Close();
         }
     }

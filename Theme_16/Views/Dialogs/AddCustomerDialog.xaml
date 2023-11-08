@@ -155,7 +155,7 @@
                                  HorizontalAlignment="Left"   
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
-                                 Text="{Binding Phone}"
+                                 Text="{Binding PhoneNum, UpdateSourceTrigger=PropertyChanged}"
                                  />
 
                         <!--e-mal-->
@@ -175,7 +175,7 @@
                                  HorizontalAlignment="Left" 
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
-                                 Text="{Binding Mail}"
+                                 Text="{Binding Mail, UpdateSourceTrigger=PropertyChanged}"
                                  />
                     </Grid>
 

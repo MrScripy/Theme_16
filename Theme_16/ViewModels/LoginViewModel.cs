@@ -39,14 +39,15 @@ namespace Theme_16.ViewModels
         }
         private void OnConnectCommandExecuted(object p)
         {
-            if (CheckedPassword == _password && CheckedLogin == _login)
-            {
-                _mainVM_NavigationService.Navigate();
-            }
-            else
-            {
-                MessageBox.Show("Wrong login and/or password", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            _mainVM_NavigationService.Navigate();
+            //if (CheckedPassword == _password && CheckedLogin == _login)
+            //{
+            //    _mainVM_NavigationService.Navigate();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Wrong login and/or password", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
         }
 
 

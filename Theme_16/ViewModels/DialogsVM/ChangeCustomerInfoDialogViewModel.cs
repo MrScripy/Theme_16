@@ -5,6 +5,7 @@ using Theme_16.Models;
 using Theme_16.ModelViews.Base;
 using Theme_16.Services;
 using Theme_16.Views.Dialogs;
+using System;
 
 namespace Theme_16.ViewModels.DialogsVM
 {
@@ -36,8 +37,8 @@ namespace Theme_16.ViewModels.DialogsVM
             set => Set(ref _surname, value);
         }
 
-        private int _phone;
-        public int Phone
+        private string _phone;
+        public string Phone
         {
             get => _phone;
             set => Set(ref _phone, Phone);
@@ -60,7 +61,7 @@ namespace Theme_16.ViewModels.DialogsVM
             _name = _customer.Name;
             _patronymic = _customer.Patronymic;
             _surname = _customer.Surname;
-            _phone = _customer.Phone;
+            _phone = _customer.Phone.ToString();
             _mail = _customer.Mail;
         }
 
@@ -75,7 +76,7 @@ namespace Theme_16.ViewModels.DialogsVM
             _customer.Name = Name;
             _customer.Patronymic = Patronymic;
             _customer.Surname = Surname;
-            _customer.Phone = Phone;
+            _customer.Phone = Int32.Parse(Phone);
 
             App.CurrentWindow.Close();
         }
