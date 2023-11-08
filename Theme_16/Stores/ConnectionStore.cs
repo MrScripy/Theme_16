@@ -1,4 +1,4 @@
-﻿namespace Theme_16.Data
+﻿namespace Theme_16.Stores
 {
     internal static class ConnectionStore
     {
