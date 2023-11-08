@@ -4,7 +4,7 @@ namespace Theme_16.Services
 {
     internal class TransferOrderService
     {
-        private Order _order = new Order();
+        private Order _order;
         public Order Order
         {
             get => _order;

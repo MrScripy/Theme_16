@@ -175,7 +175,7 @@
                                  HorizontalAlignment="Left"  
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
-                                 Text="{Binding ItemCode}"
+                                 Text="{Binding ItemCode, UpdateSourceTrigger=PropertyChanged}"
                                  />
 
                         <!--Good name-->
@@ -196,7 +196,7 @@
                                  HorizontalAlignment="Left"   
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
-                                 Text="{Binding ItemName}"
+                                 Text="{Binding ItemName, UpdateSourceTrigger=PropertyChanged}"
                                  />
                     </Grid>
 

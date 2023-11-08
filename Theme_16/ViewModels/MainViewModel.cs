@@ -72,8 +72,6 @@ namespace Theme_16.ViewModels
             Window changeCustomerInfoDialog = new ChangeCustomerInfoDialog();
             changeCustomerInfoDialog.ShowDialog();
 
-
-
             try
             {
                 _connection.Open();
@@ -102,6 +100,7 @@ namespace Theme_16.ViewModels
             finally
             {
                 _connection.Close();
+                _transferCustomerService.Customer = null;
             }
 
         }
@@ -121,11 +120,7 @@ namespace Theme_16.ViewModels
             addCustomerDialog.ShowDialog();
             Customer newCustomer = _transferCustomerService.Customer;
 
-            if(newCustomer == null)
-            {
-                return;
-            }
-            else if (CheckCustomerUniqueness(newCustomer))
+            if (CheckCustomerUniqueness(newCustomer))
             {
                 MessageBox.Show("User with the same e-mail already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -169,6 +164,7 @@ namespace Theme_16.ViewModels
                 finally
                 {
                     _connection.Close();
+                    _transferCustomerService.Customer = null;
                 }
             }
         }
@@ -185,43 +181,50 @@ namespace Theme_16.ViewModels
             addOrderDialog.ShowDialog();
 
             Order newOrder = _transferOrderService.Order;
+
             if (newOrder != null)
             {
-                try
+                if(!string.IsNullOrEmpty(newOrder.ItemName) && newOrder.ItemCode !=0)
                 {
-                    _connection.Open();
-                    SqlCommand command = _connection.CreateCommand();
-                    command.CommandText = $"INSERT INTO Orders (Mail, ItemCode, ItemName) " +
-                        $"VALUES ('{SelectedCustomer.Mail}', {newOrder.ItemCode}, '{newOrder.ItemName}')";
-                    command.ExecuteNonQuery();
-                    Debug.WriteLine("Added new Order");
-
-                    command.CommandText = $"SELECT * FROM Orders WHERE Mail = '{SelectedCustomer.Mail}'";
-
-                    using (SqlDataReader ordersReader = command.ExecuteReader())
+                    try
                     {
-                        while (ordersReader.Read())
-                        {
-                            SelectedCustomer.Orders.Add(new Order()
-                            {
-                                Id = ordersReader.GetInt32(0),
-                                Mail = ordersReader.GetString(1),
-                                ItemCode = ordersReader.GetInt32(2),
-                                ItemName = ordersReader.GetString(3),
-                            });
+                        _connection.Open();
+                        SqlCommand command = _connection.CreateCommand();
+                        command.CommandText = $"INSERT INTO Orders (Mail, ItemCode, ItemName) " +
+                            $"VALUES ('{SelectedCustomer.Mail}', {newOrder.ItemCode}, '{newOrder.ItemName}')";
+                        command.ExecuteNonQuery();
+                        Debug.WriteLine("Added new Order");
 
-                            Debug.WriteLine("Added new order");
+                        command.CommandText = $"SELECT * FROM Orders WHERE Mail = '{SelectedCustomer.Mail}'";
+
+                        using (SqlDataReader ordersReader = command.ExecuteReader())
+                        {
+                            SelectedCustomer.Orders.Clear();
+
+                            while (ordersReader.Read())
+                            {
+                                SelectedCustomer.Orders.Add(new Order()
+                                {
+                                    Id = ordersReader.GetInt32(0),
+                                    Mail = ordersReader.GetString(1),
+                                    ItemCode = ordersReader.GetInt32(2),
+                                    ItemName = ordersReader.GetString(3),
+                                });
+
+                                Debug.WriteLine("Added new order");
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("adding new order is failed");
-                    Debug.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    _connection.Close();
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("adding new order is failed");
+                        Debug.WriteLine(ex.Message);
+                    }
+                    finally
+                    {
+                        _connection.Close();
+                        _transferOrderService.Order = null;
+                    }
                 }
             }
         }

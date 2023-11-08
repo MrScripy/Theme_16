@@ -60,12 +60,12 @@ namespace Theme_16.ViewModels.DialogsVM
 
         private bool CanAddCustomerCommandExecute(object p)
         {
-            if (Mail != null && Mail != string.Empty && int.TryParse(PhoneNum, out _)) return true;
+            if (!string.IsNullOrEmpty(Mail) && int.TryParse(PhoneNum, out _)) return true;
             return false;
         }
         private void OnAddCustomerCommandExecuted(object p)
         {
-            if (Mail == string.Empty || Mail == null)
+            if (!string.IsNullOrEmpty(Mail))
             {
                 _transferService.Customer = null;
             }
