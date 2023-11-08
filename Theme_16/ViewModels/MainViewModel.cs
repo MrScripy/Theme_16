@@ -121,7 +121,11 @@ namespace Theme_16.ViewModels
             addClientDialog.ShowDialog();
             Person newCustomer = _transferCustomerService.Customer;
 
-            if (!CheckPersonUniqueness(newCustomer))
+            if(newCustomer == null)
+            {
+                return;
+            }
+            else if (CheckPersonUniqueness(newCustomer))
             {
                 MessageBox.Show("User with the same e-mail already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
