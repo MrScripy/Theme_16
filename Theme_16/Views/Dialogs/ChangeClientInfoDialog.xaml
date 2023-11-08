@@ -177,6 +177,7 @@
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
                                  Text="{Binding Mail}"
+                                 IsReadOnly="True"
                                  />
                     </Grid>
 

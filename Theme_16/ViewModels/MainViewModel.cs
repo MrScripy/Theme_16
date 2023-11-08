@@ -67,11 +67,42 @@ namespace Theme_16.ViewModels
         private bool CanChangeCustomerCommandExecute(object p) => SelectedPerson != null ? true : false;
         private void OnChangeCustomerCommandExecuted(object p)
         {
-           
+            _transferCustomerService.Customer = SelectedPerson;
+
             Window changeClientInfoDialog = new ChangeClientInfoDialog();
             changeClientInfoDialog.ShowDialog();
 
 
+
+            try
+            {
+                _connection.Open();
+                SqlCommand command = _connection.CreateCommand();
+                command.CommandText = $"UPDATE Customers " +
+                        $"SET Name = '{SelectedPerson.Name}', Patronymic = '{SelectedPerson.Patronymic}', Surname = '{SelectedPerson.Surname}', Phone = '{SelectedPerson.Phone}' " +
+                        $"WHERE Mail = '{SelectedPerson.Mail}'";
+
+                command.ExecuteNonQuery();
+                Debug.WriteLine("Updated Customer");
+
+
+                // crutch, but didn't find another way to update view (OnPropertyChanged doesn't work)
+                var person = Customers.FirstOrDefault<Person>(p => p.Mail == SelectedPerson.Mail);
+                if (person != null)
+                {
+                    Customers.Remove(person);
+                    Customers.Insert(person.Id - 1, person);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("adding new customer is failed");
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                _connection.Close();
+            }
 
         }
 

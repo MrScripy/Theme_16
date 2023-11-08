@@ -13,6 +13,7 @@ namespace Theme_16.ViewModels.DialogsVM
         #region Properties
 
         private readonly TransferCustomerService _transferCustomerService;
+        private Person _person;
 
         private string _name;
         public string Name
@@ -54,12 +55,13 @@ namespace Theme_16.ViewModels.DialogsVM
         public ChangeClientInfoDialogViewModel(TransferCustomerService transferCustomerService)
         {
             _transferCustomerService = transferCustomerService;
-            Person person = _transferCustomerService.Customer;
-            _name = person.Name;
-            _patronymic = person.Patronymic;
-            _surname = person.Surname;
-            _phone = person.Phone;
-            _mail = person.Mail;
+            _person = _transferCustomerService.Customer;
+
+            _name = _person.Name;
+            _patronymic = _person.Patronymic;
+            _surname = _person.Surname;
+            _phone = _person.Phone;
+            _mail = _person.Mail;
         }
 
         private ICommand _changeCustomerCommand;
@@ -70,7 +72,12 @@ namespace Theme_16.ViewModels.DialogsVM
         private void OnChangeCustomerCommandExecuted(object p)
         {
             
+            _person.Name = Name;
+            _person.Patronymic = Patronymic;
+            _person.Surname = Surname;
+            _person.Phone = Phone;
 
+            App.CurrentWindow.Close();
         }
 
 
