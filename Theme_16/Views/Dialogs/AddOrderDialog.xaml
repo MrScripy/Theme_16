@@ -32,7 +32,7 @@
 
             <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource TransparentBrush}" MouseDown="Window_MouseDown">
                 <TextBlock Style="{StaticResource TtitleTextBlockStyle}"
-                       Text="Add Client"
+                       Text="Add Order"
                        />
             </Border>
 

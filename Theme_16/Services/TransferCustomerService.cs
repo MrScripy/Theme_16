@@ -5,8 +5,8 @@ namespace Theme_16.Services
 {
     internal class TransferCustomerService
     {
-        private Person _customer = new Person();
-        public Person Customer
+        private Customer _customer = new Customer();
+        public Customer Customer
         {
             get => _customer;
             set => _customer = value;

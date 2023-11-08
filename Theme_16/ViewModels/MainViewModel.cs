@@ -24,8 +24,8 @@ namespace Theme_16.ViewModels
         private readonly TransferOrderService _transferOrderService;
         private SqlConnection _connection = new SqlConnection(ConnectionStore.ConnectionDB);
 
-        private ObservableCollection<Person> _customers;
-        public ObservableCollection<Person> Customers
+        private ObservableCollection<Customer> _customers;
+        public ObservableCollection<Customer> Customers
         {
             get => _customers;
             private set => Set(ref _customers, value);
@@ -38,14 +38,14 @@ namespace Theme_16.ViewModels
             private set => Set(ref _orders, value);
         }
 
-        private Person _selectedPerson;
-        public Person SelectedPerson
+        private Customer _selectedCustomer;
+        public Customer SelectedCustomer
         {
-            get => _selectedPerson;
+            get => _selectedCustomer;
             set
             {
-                Set(ref _selectedPerson, value);
-                _transferCustomerService.Customer = SelectedPerson;
+                Set(ref _selectedCustomer, value);
+                _transferCustomerService.Customer = SelectedCustomer;
             }
         }
 
@@ -64,13 +64,13 @@ namespace Theme_16.ViewModels
         public ICommand ChangeCustomerCommand => _changeCustomerCommand ??=
             new LambdaCommand(OnChangeCustomerCommandExecuted, CanChangeCustomerCommandExecute);
 
-        private bool CanChangeCustomerCommandExecute(object p) => SelectedPerson != null ? true : false;
+        private bool CanChangeCustomerCommandExecute(object p) => SelectedCustomer != null ? true : false;
         private void OnChangeCustomerCommandExecuted(object p)
         {
-            _transferCustomerService.Customer = SelectedPerson;
+            _transferCustomerService.Customer = SelectedCustomer;
 
-            Window changeClientInfoDialog = new ChangeClientInfoDialog();
-            changeClientInfoDialog.ShowDialog();
+            Window changeCustomerInfoDialog = new ChangeCustomerInfoDialog();
+            changeCustomerInfoDialog.ShowDialog();
 
 
 
@@ -79,19 +79,19 @@ namespace Theme_16.ViewModels
                 _connection.Open();
                 SqlCommand command = _connection.CreateCommand();
                 command.CommandText = $"UPDATE Customers " +
-                        $"SET Name = '{SelectedPerson.Name}', Patronymic = '{SelectedPerson.Patronymic}', Surname = '{SelectedPerson.Surname}', Phone = '{SelectedPerson.Phone}' " +
-                        $"WHERE Mail = '{SelectedPerson.Mail}'";
+                        $"SET Name = '{SelectedCustomer.Name}', Patronymic = '{SelectedCustomer.Patronymic}', Surname = '{SelectedCustomer.Surname}', Phone = '{SelectedCustomer.Phone}' " +
+                        $"WHERE Mail = '{SelectedCustomer.Mail}'";
 
                 command.ExecuteNonQuery();
                 Debug.WriteLine("Updated Customer");
 
 
                 // crutch, but didn't find another way to update view (OnPropertyChanged doesn't work)
-                var person = Customers.FirstOrDefault<Person>(p => p.Mail == SelectedPerson.Mail);
-                if (person != null)
+                var customer = Customers.FirstOrDefault<Customer>(p => p.Mail == SelectedCustomer.Mail);
+                if (customer != null)
                 {
-                    Customers.Remove(person);
-                    Customers.Insert(person.Id - 1, person);
+                    Customers.Remove(customer);
+                    Customers.Insert(customer.Id - 1, customer);
                 }
             }
             catch (Exception ex)
@@ -117,15 +117,15 @@ namespace Theme_16.ViewModels
         }
         private void OnAddCustomerCommandExecuted(object p)
         {
-            Window addClientDialog = new AddClientDialog();
-            addClientDialog.ShowDialog();
-            Person newCustomer = _transferCustomerService.Customer;
+            Window addCustomerDialog = new AddCustomerDialog();
+            addCustomerDialog.ShowDialog();
+            Customer newCustomer = _transferCustomerService.Customer;
 
             if(newCustomer == null)
             {
                 return;
             }
-            else if (CheckPersonUniqueness(newCustomer))
+            else if (CheckCustomerUniqueness(newCustomer))
             {
                 MessageBox.Show("User with the same e-mail already exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -147,7 +147,7 @@ namespace Theme_16.ViewModels
                     {
                         while (customersReader.Read())
                         {
-                            Customers.Add(new Person()
+                            Customers.Add(new Customer()
                             {
                                 Id = customersReader.GetInt32(0),
                                 Name = customersReader.GetString(1),
@@ -178,7 +178,7 @@ namespace Theme_16.ViewModels
         public ICommand AddOrderCommand => _addOrderCommand ??=
             new LambdaCommand(OnAddOrderCommandExecuted, CanAddOrderCommandExecute);
 
-        private bool CanAddOrderCommandExecute(object p) => SelectedPerson != null ? true : false;
+        private bool CanAddOrderCommandExecute(object p) => SelectedCustomer != null ? true : false;
         private void OnAddOrderCommandExecuted(object p)
         {
             Window addOrderDialog = new AddOrderDialog();
@@ -192,17 +192,17 @@ namespace Theme_16.ViewModels
                     _connection.Open();
                     SqlCommand command = _connection.CreateCommand();
                     command.CommandText = $"INSERT INTO Orders (Mail, ItemCode, ItemName) " +
-                        $"VALUES ('{SelectedPerson.Mail}', {newOrder.ItemCode}, '{newOrder.ItemName}')";
+                        $"VALUES ('{SelectedCustomer.Mail}', {newOrder.ItemCode}, '{newOrder.ItemName}')";
                     command.ExecuteNonQuery();
                     Debug.WriteLine("Added new Order");
 
-                    command.CommandText = $"SELECT * FROM Orders WHERE Mail = '{SelectedPerson.Mail}'";
+                    command.CommandText = $"SELECT * FROM Orders WHERE Mail = '{SelectedCustomer.Mail}'";
 
                     using (SqlDataReader ordersReader = command.ExecuteReader())
                     {
                         while (ordersReader.Read())
                         {
-                            SelectedPerson.Orders.Add(new Order()
+                            SelectedCustomer.Orders.Add(new Order()
                             {
                                 Id = ordersReader.GetInt32(0),
                                 Mail = ordersReader.GetString(1),
@@ -243,13 +243,13 @@ namespace Theme_16.ViewModels
         #region private methods
         private async Task DownloadCustomersData()
         {
-            _customers = new ObservableCollection<Person>();
+            _customers = new ObservableCollection<Customer>();
 
             try
             {
                 await _connection.OpenAsync();
                 Customers = await GetCustomersAsync();
-                foreach (Person customer in Customers)
+                foreach (Customer customer in Customers)
                 {
                     customer.Orders = await GetOrdersAsync(customer);
                 }
@@ -265,9 +265,9 @@ namespace Theme_16.ViewModels
                 _connection.Close();
             }
         }
-        private async Task<ObservableCollection<Person>> GetCustomersAsync()
+        private async Task<ObservableCollection<Customer>> GetCustomersAsync()
         {
-            ObservableCollection<Person> customers = new ObservableCollection<Person>();
+            ObservableCollection<Customer> customers = new ObservableCollection<Customer>();
             string sqlCustomersExpression = "SELECT * FROM Customers";
 
             SqlCommand getCustomersCommand = new SqlCommand(sqlCustomersExpression, _connection);
@@ -280,7 +280,7 @@ namespace Theme_16.ViewModels
                     {
 
                         string mail = customersReader.GetString(5);
-                        customers.Add(new Person()
+                        customers.Add(new Customer()
                         {
                             Id = customersReader.GetInt32(0),
                             Name = customersReader.GetString(1),
@@ -301,11 +301,11 @@ namespace Theme_16.ViewModels
             }
             return customers;
         }
-        private async Task<ObservableCollection<Order>> GetOrdersAsync(Person person)
+        private async Task<ObservableCollection<Order>> GetOrdersAsync(Customer customer)
         {
             ObservableCollection<Order> orders = new ObservableCollection<Order>();
 
-            string sqlOrdersExpression = $"SELECT * FROM Orders WHERE Mail = '{person.Mail}'";
+            string sqlOrdersExpression = $"SELECT * FROM Orders WHERE Mail = '{customer.Mail}'";
             SqlCommand getOrdersCommand = new SqlCommand(sqlOrdersExpression, _connection);
             try
             {
@@ -361,10 +361,10 @@ namespace Theme_16.ViewModels
             }
         }
 
-        private bool CheckPersonUniqueness(Person person)
+        private bool CheckCustomerUniqueness(Customer customer)
         {
-            Person checkedPerson = Customers.FirstOrDefault<Person>(person => person.Mail == person.Mail);
-            return checkedPerson == null ? true : false;
+            Customer checkedCustomer = Customers.FirstOrDefault<Customer>(p => p.Mail == p.Mail);
+            return checkedCustomer == null ? true : false;
         }
 
         public void Dispose()

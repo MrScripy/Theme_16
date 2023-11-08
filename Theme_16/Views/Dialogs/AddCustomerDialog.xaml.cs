@@ -5,11 +5,11 @@ using Theme_16.Models;
 namespace Theme_16.Views.Dialogs
 {
     /// <summary>
-    /// Логика взаимодействия для AddClientDialog.xaml
+    /// Логика взаимодействия для AddCustomerDialog.xaml
     /// </summary>
-    public partial class AddClientDialog : Window
+    public partial class AddCustomerDialog : Window
     {
-        public AddClientDialog()
+        public AddCustomerDialog()
         {
             InitializeComponent();
         }

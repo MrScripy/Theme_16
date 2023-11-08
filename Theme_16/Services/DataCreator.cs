@@ -13,7 +13,7 @@ namespace Theme_16.Services
 {
     internal class DataCreator : IDataCreator
     {
-        IEnumerable<Person> _testCustomers;
+        IEnumerable<Customer> _testCustomers;
         IEnumerable<Order> _orders;
 
         Random _random = new Random();
@@ -41,7 +41,7 @@ namespace Theme_16.Services
         private async Task GenerateData()
         {
             _testCustomers = Enumerable.Range(1, 50)
-              .Select(i => new Person
+              .Select(i => new Customer
               {
                   Name = $"Name {i}",
                   Patronymic = $"Patronymic {i}",
@@ -93,10 +93,10 @@ namespace Theme_16.Services
 
             try
             {
-                foreach (Person person in _testCustomers)
+                foreach (Customer customer in _testCustomers)
                 {
                     command.CommandText = $"INSERT INTO Customers (Name, Patronymic, Surname, Phone, Mail) " +
-                        $"VALUES ('{person.Name}', '{person.Patronymic}', '{person.Surname}', {person.Phone}, '{person.Mail}')";
+                        $"VALUES ('{customer.Name}', '{customer.Patronymic}', '{customer.Surname}', {customer.Phone}, '{customer.Mail}')";
 
                     await command.ExecuteNonQueryAsync();
                 }

@@ -8,7 +8,7 @@ using Theme_16.Infrastrucutre.Commands.ControlCommands;
 
 namespace Theme_16.ViewModels.DialogsVM
 {
-    internal class AddClientDialogViewModel : ViewModel
+    internal class AddCustomerDialogViewModel : ViewModel
     {
         #region Properties
         private readonly TransferCustomerService _transferService;
@@ -49,7 +49,7 @@ namespace Theme_16.ViewModels.DialogsVM
         }
         #endregion
 
-        public AddClientDialogViewModel(TransferCustomerService transferService)
+        public AddCustomerDialogViewModel(TransferCustomerService transferService)
         {
             _transferService = transferService;
         }
@@ -71,7 +71,7 @@ namespace Theme_16.ViewModels.DialogsVM
             }
             else
             {
-                _transferService.Customer = new Models.Person()
+                _transferService.Customer = new Models.Customer()
                 {
                     Name = Name,
                     Patronymic = Patronymic,

@@ -4,11 +4,11 @@ using System.Windows.Input;
 namespace Theme_16.Views.Dialogs
 {
     /// <summary>
-    /// Логика взаимодействия для ChangeClientInfoDialog.xaml
+    /// Логика взаимодействия для ChangeCustomerInfoDialog.xaml
     /// </summary>
-    public partial class ChangeClientInfoDialog : Window
+    public partial class ChangeCustomerInfoDialog : Window
     {
-        public ChangeClientInfoDialog()
+        public ChangeCustomerInfoDialog()
         {
             InitializeComponent();
         }

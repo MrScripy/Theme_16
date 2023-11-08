@@ -8,12 +8,12 @@ using Theme_16.Views.Dialogs;
 
 namespace Theme_16.ViewModels.DialogsVM
 {
-    internal class ChangeClientInfoDialogViewModel : ViewModel
+    internal class ChangeCustomerInfoDialogViewModel : ViewModel
     {
         #region Properties
 
         private readonly TransferCustomerService _transferCustomerService;
-        private Person _person;
+        private Customer _customer;
 
         private string _name;
         public string Name
@@ -52,16 +52,16 @@ namespace Theme_16.ViewModels.DialogsVM
         #endregion
 
 
-        public ChangeClientInfoDialogViewModel(TransferCustomerService transferCustomerService)
+        public ChangeCustomerInfoDialogViewModel(TransferCustomerService transferCustomerService)
         {
             _transferCustomerService = transferCustomerService;
-            _person = _transferCustomerService.Customer;
+            _customer = _transferCustomerService.Customer;
 
-            _name = _person.Name;
-            _patronymic = _person.Patronymic;
-            _surname = _person.Surname;
-            _phone = _person.Phone;
-            _mail = _person.Mail;
+            _name = _customer.Name;
+            _patronymic = _customer.Patronymic;
+            _surname = _customer.Surname;
+            _phone = _customer.Phone;
+            _mail = _customer.Mail;
         }
 
         private ICommand _changeCustomerCommand;
@@ -72,10 +72,10 @@ namespace Theme_16.ViewModels.DialogsVM
         private void OnChangeCustomerCommandExecuted(object p)
         {
             
-            _person.Name = Name;
-            _person.Patronymic = Patronymic;
-            _person.Surname = Surname;
-            _person.Phone = Phone;
+            _customer.Name = Name;
+            _customer.Patronymic = Patronymic;
+            _customer.Surname = Surname;
+            _customer.Phone = Phone;
 
             App.CurrentWindow.Close();
         }

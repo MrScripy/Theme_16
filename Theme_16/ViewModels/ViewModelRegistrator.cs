@@ -9,9 +9,9 @@ namespace Theme_16.ViewModels
             .AddSingleton<MainWindowViewModel>()
             .AddTransient<LoginViewModel>()
             .AddTransient<MainViewModel>()
-            .AddTransient<AddClientDialogViewModel>()
+            .AddTransient<AddCustomerDialogViewModel>()
             .AddTransient<AddOrderDialogViewModel>()
-            .AddTransient<ChangeClientInfoDialogViewModel>()
+            .AddTransient<ChangeCustomerInfoDialogViewModel>()
             ;
     }
 }

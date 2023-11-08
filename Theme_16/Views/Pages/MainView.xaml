@@ -42,7 +42,7 @@
                       BorderBrush="{StaticResource AliceBlueBrush}"
                       BorderThickness="1"
                       ItemsSource="{Binding Customers}"
-                      SelectedItem="{Binding SelectedPerson}"
+                      SelectedItem="{Binding SelectedCustomer}"
                       HorizontalScrollBarVisibility="Hidden"
                       VerticalScrollBarVisibility="Hidden"
                       >
@@ -67,7 +67,7 @@
                       Margin="30 0 0 0"
                       BorderBrush="{StaticResource AliceBlueBrush}"
                       BorderThickness="1"
-                      ItemsSource="{Binding SelectedPerson.Orders}"
+                      ItemsSource="{Binding SelectedCustomer.Orders}"
                       AutoGenerateColumns="False"
                       >
                 <DataGrid.Columns>

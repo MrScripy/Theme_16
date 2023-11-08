@@ -1,4 +1,4 @@
-﻿<Window x:Class="Theme_16.Views.Dialogs.ChangeClientInfoDialog"
+﻿<Window x:Class="Theme_16.Views.Dialogs.AddCustomerDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,14 +6,13 @@
         xmlns:local="clr-namespace:Theme_16.Views.Dialogs"
         mc:Ignorable="d"
         
-        
-        Height="490" Width="490"
+        Height="500" Width="490"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         WindowStyle="None" 
         AllowsTransparency="True" Background="Transparent"
-        Title="Change Client Info"
+        Title="Add Customer"
+        DataContext="{Binding AddCustomerDialogViewModel, Source={StaticResource Locator}}"
         Icon="../../Recources/Images/Icon.png"
-        DataContext="{Binding ChangeClientInfoDialogViewModel, Source={StaticResource Locator}}"
         >
 
     <Border Style="{StaticResource GradientBorder}"    
@@ -33,14 +32,15 @@
 
             <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource TransparentBrush}" MouseDown="Window_MouseDown">
                 <TextBlock Style="{StaticResource TtitleTextBlockStyle}"
-                           Grid.Column="0"
-                           Text="Change Client Info"
-                           />
+                       Text="Add Customer"
+                       />
             </Border>
-        
+
+
             <Button Style="{StaticResource MinimizeButton}"  
                     Grid.Row="0"
                     Grid.Column="1"
+                    Command="{StaticResource MinimizeWindowCommand}"
                     Visibility="Hidden"
                     />
 
@@ -59,8 +59,9 @@
                   Margin="20"
                   >
                 <StackPanel Margin="10" Orientation="Vertical">
-                    <TextBlock Text="Change Client Info"  
-                               Style="{StaticResource TextBlockStyle}"
+
+                    <TextBlock Style="{StaticResource TextBlockStyle}"
+                               Text="Add Customer"     
                                FontSize="28"
                                HorizontalAlignment="Center"
                                Margin="5"
@@ -80,92 +81,90 @@
                         </Grid.RowDefinitions>
 
                         <!--Surname-->
-                        <TextBlock Text="Surname"    
-                                   Style="{StaticResource TextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockStyle}"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Center"
                                    Grid.Column="0"
                                    Grid.Row="0"
+                                   Text="Surname"  
                                    Margin="15"
                                    />
-
-                        <TextBox Style="{StaticResource TextBoxStyle}" 
+                        <TextBox Style="{StaticResource TextBoxStyle}"
                                  Grid.Column="1"
                                  Grid.Row="0"
                                  VerticalAlignment="Center"   
-                                 HorizontalAlignment="Left"
+                                 HorizontalAlignment="Left"  
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
                                  Text="{Binding Surname}"
                                  />
 
                         <!--Name-->
-                        <TextBlock Text="Name"   
-                                   Style="{StaticResource TextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockStyle}"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Center"
                                    Grid.Column="0"
                                    Grid.Row="1"
-                                   Margin="15"
+                                   Text="Name"     
+                                   Margin="15"                                   
                                    />
 
                         <TextBox Style="{StaticResource TextBoxStyle}"
                                  Grid.Column="1"
                                  Grid.Row="1"
                                  VerticalAlignment="Center"  
-                                 HorizontalAlignment="Left"  
+                                 HorizontalAlignment="Left" 
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
                                  Text="{Binding Name}"
                                  />
 
                         <!--Patronimyc-->
-                        <TextBlock Text="Patronimyc"
-                                   Style="{StaticResource TextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockStyle}"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Center"
                                    Grid.Column="0"
                                    Grid.Row="2"
+                                   Text="Patronimyc"
                                    Margin="15"
                                    />
 
                         <TextBox Style="{StaticResource TextBoxStyle}"
                                  Grid.Column="1"
                                  Grid.Row="2"
-                                 VerticalAlignment="Center"   
-                                 HorizontalAlignment="Left"   
+                                 HorizontalAlignment="Left"
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
                                  Text="{Binding Patronymic}"
                                  />
 
                         <!--TelNum-->
-                        <TextBlock Text="Tel."
-                                   Style="{StaticResource TextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockStyle}"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Center"
                                    Grid.Column="0"
                                    Grid.Row="3"
-                                   Margin="15"
+                                   Text="Tel."   
+                                   Margin="15"                                   
                                    />
 
                         <TextBox Style="{StaticResource TextBoxStyle}"
                                  Grid.Column="1"
                                  Grid.Row="3"
                                  VerticalAlignment="Center"   
-                                 HorizontalAlignment="Left"  
+                                 HorizontalAlignment="Left"   
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
                                  Text="{Binding Phone}"
                                  />
 
                         <!--e-mal-->
-                        <TextBlock Text="E-mail" 
-                                   Style="{StaticResource TextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockStyle}"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Center"
                                    Grid.Column="0"
                                    Grid.Row="4"
+                                   Text="E-mail"  
                                    Margin="15"
                                    />
 
@@ -177,34 +176,33 @@
                                  BorderThickness="0,0,0,1"
                                  Margin="5"
                                  Text="{Binding Mail}"
-                                 IsReadOnly="True"
                                  />
                     </Grid>
 
                     <Button Style="{StaticResource BigPinkBtn}"
                             Width="100"
-                            Height="30"               
+                            Height="30"  
                             FontSize="16"  
-                            Content="Change"  
+                            Content="Add"  
                             Margin="25, 0"
-                            Command="{Binding ChangeCustomerCommand}"
+                            Command="{Binding AddCustomerCommand}"
                             >
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Width="100" 
-                                        Height="30"
+                                <Border Width="100" Height="30"
                                         CornerRadius="9"
-                                        Background="{TemplateBinding Background}"
-                                        >
+                                        Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center" 
-                                                      HorizontalAlignment="Center"
-                                                      />
+                                                      HorizontalAlignment="Center"/>
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
+
                     </Button>
 
                 </StackPanel>
+
+
             </Grid>
         </Grid>
     </Border>
